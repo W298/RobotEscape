@@ -36,9 +36,10 @@ public class AIVisionSensor : MonoBehaviour
             float deltaHAngle = (horizontalAngle * 2) / (horizontalResolution - 1);
             for (int h = 0; h < horizontalResolution; h++)
             {
-                Vector3 point = transform.position + Quaternion.Euler(currentVAngle, currentHAngle, 0) * Vector3.forward * distance;
+                Vector3 point = transform.position + Quaternion.Euler(currentVAngle, currentHAngle, 0) * transform.forward * distance;
                 Physics.Linecast(transform.position, point, out RaycastHit hit, 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Object"));
-                Debug.DrawLine(transform.position, hit.collider ? hit.point : point, Color.red, scanInterval);
+                
+                if ((h == 0 || h == horizontalResolution - 1) && v == 0) Debug.DrawLine(transform.position, hit.collider ? hit.point : point, Color.red, scanInterval);
 
                 if (hit.collider && hit.collider.gameObject.layer == LayerMask.NameToLayer("Object"))
                 {
@@ -60,7 +61,5 @@ public class AIVisionSensor : MonoBehaviour
             scanTimer += scanInterval;
             Scan();
         }
-
-        detectedObjectList.ForEach(g => Debug.Log(g.name));
     }
 }

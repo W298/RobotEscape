@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ReloadController : StateMachineBehaviour
 {
+    private GunController gunController;
     private bool aimReload = false;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        gunController = animator.transform.GetComponentInChildren<GunController>();
         aimReload = animator.GetBool("isAim");
     }
 
@@ -20,7 +22,7 @@ public class ReloadController : StateMachineBehaviour
 
         if (stateInfo.normalizedTime > 1)
         {
-            animator.transform.GetComponentInChildren<GunController>().OnReload();
+            gunController.OnReload();
             animator.SetBool("isReload", false);
         }
     }

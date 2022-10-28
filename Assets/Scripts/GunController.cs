@@ -69,8 +69,6 @@ public class GunController : MonoBehaviour
     public int totalAmmo = 30;
     public AmmoSystem ammoSystem;
 
-    
-
     private void Start()
     {
         audioSource = GetComponentInChildren<AudioSource>();
@@ -78,11 +76,6 @@ public class GunController : MonoBehaviour
         camController = transform.root.GetComponent<PlayerCameraController>();
 
         ammoSystem = new AmmoSystem(magCapacity, totalAmmo);
-    }
-
-    private void FixedUpdate()
-    {
-        DebugExtension.DebugWireSphere(transform.position, Color.cyan, fireSoundRange);
     }
 
     private RaycastHit CheckHit()
@@ -119,6 +112,7 @@ public class GunController : MonoBehaviour
     private void FireWeapon()
     {
         if (ammoSystem.magAmmo <= 0) return;
+        ammoSystem.magAmmo--;
 
         Instantiate(muzzleFlash, muzzleFireStart);
 
@@ -139,9 +133,6 @@ public class GunController : MonoBehaviour
             var soundSensor = robot.GetComponentInChildren<AISoundSensor>();
             if (soundSensor) soundSensor.OnSoundHear(fireSoundRange, transform.position, transform.root.gameObject);
         }
-
-        ammoSystem.magAmmo--;
-        if (ammoSystem.magAmmo == 0) SendMessageUpwards("AIReloadNeed");
     }
 
     public void OnFire()

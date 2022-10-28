@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 7732613217257796728}
   - component: {fileID: 7732613217257796706}
   - component: {fileID: 1305442460}
+  - component: {fileID: 1567115030802915778}
   - component: {fileID: 757420663}
   - component: {fileID: 757420664}
   m_Layer: 7
@@ -180,7 +181,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 3
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -294,9 +295,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c077181487a35a4ba7add6fa4496dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 0}
-  navAgent: {fileID: 0}
-  exTarget: {fileID: 0}
+  enemyObject: {fileID: 0}
+  lastEnemyPosition: {x: 0, y: 0, z: 0}
+  health: 100
+  seekLevelDsc: 1
+  seekLevel: 0
+  seekPointReached: 0
+--- !u!114 &1567115030802915778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331072638823750630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2cd20872a320940a28fc6d48067e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &757420663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2571,7 +2587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567c9ead91281b747975b3078f8286cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 10
+  distance: 15
   horizontalAngle: 45
   verticalAngle: 8
   horizontalResolution: 24
@@ -6314,6 +6330,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7158678342862884081, guid: aa3c3ced8ade6ad4593318507357029a,
         type: 3}
+    - target: {fileID: 5068976619487244169, guid: a66d64962dad7b441b895147b3616981,
+        type: 3}
+      propertyPath: magCapacity
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5068976619487244169, guid: a66d64962dad7b441b895147b3616981,
         type: 3}
       propertyPath: fireSoundRange

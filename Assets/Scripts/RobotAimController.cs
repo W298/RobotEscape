@@ -24,7 +24,7 @@ public class RobotAimController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 targetPos = new Vector3();
+        Vector3 targetPos = transform.position + (enemyRobotAI ? enemyRobotAI.navAgent.velocity : transform.forward * 3);
 
         if (cam)
         {
@@ -33,14 +33,9 @@ public class RobotAimController : MonoBehaviour
             Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask);
             targetPos = hit.collider ? hit.point : transform.root.position + transform.forward * 3;
         }
-        else
+        else if (enemyRobotAI.enemyObject)
         {
-            var cur = enemyRobotAI.aStateMachine.currentState;
-
-            if (cur is AttackAimState or AttackFireState)
-            {
-                targetPos = cur.attackTargetObject ? cur.attackTargetObject.transform.position : cur.attackPosition;
-            }
+            targetPos = enemyRobotAI.enemyObject.transform.position;
         }
 
         Vector3 direction = (targetPos - transform.root.position).normalized;
