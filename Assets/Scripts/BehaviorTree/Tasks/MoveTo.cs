@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using BehaviorTree;
+using BT;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,7 +9,7 @@ public class MoveTo : Node
     protected Vector3 targetPosition;
     private EnemyRobotBT ebt;
 
-    public MoveTo(Vector3 targetPosition, BTree bt) : base(bt)
+    public MoveTo(Vector3 targetPosition, BehaviorTree bt) : base(bt)
     {
         this.targetPosition = targetPosition;
         ebt = (EnemyRobotBT)bt;

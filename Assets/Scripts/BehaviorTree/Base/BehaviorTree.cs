@@ -1,11 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviorTree
+namespace BT
 {
-    public abstract class BTree : MonoBehaviour
+    public abstract class BehaviorTree : MonoBehaviour
     {
+        protected bool active = true;
         private Node _root = null;
 
         private void Start()
@@ -15,7 +17,7 @@ namespace BehaviorTree
 
         private void FixedUpdate()
         {
-            _root?.Evaluate();
+            if (active) _root?.Evaluate();
         }
 
         protected abstract Node CreateTree();

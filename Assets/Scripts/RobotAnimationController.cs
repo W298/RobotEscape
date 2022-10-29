@@ -14,6 +14,11 @@ public class RobotAnimationController : MonoBehaviour
         animator.SetBool("isReload", true);
     }
 
+    public void OnDeath()
+    {
+        animator.SetBool("isDeath", true);
+    }
+
     private void Start()
     {
         inputHandler = GetComponent<RobotInputHandler>();
@@ -46,5 +51,6 @@ public class RobotAnimationController : MonoBehaviour
         animator.SetBool("isMoving", inputHandler.isMoving);
         animator.SetBool("isCrouch", inputHandler.isCrouch);
         animator.SetBool("isAim", inputHandler.isAim);
+        animator.SetBool("isWalk", inputHandler.isWalk);
     }
 }

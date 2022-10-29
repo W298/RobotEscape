@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Android;
 
 public class EnemyRobotAI : MonoBehaviour
 {
@@ -11,13 +12,24 @@ public class EnemyRobotAI : MonoBehaviour
     [NonSerialized] public GunController gunController;
     [NonSerialized] public AIVisionSensor visonSensor;
     [NonSerialized] public AISoundSensor soundSensor;
+    [NonSerialized] public RobotStatusController statusController;
 
-    [Header("Detect Enemy")]
+    private bool forceStop = false;
+
+    [Header("Reaction")]
+    public float reactionDelay = 0.5f;
+
+    [Header("Detection")]
     public GameObject enemyObject = null;
     public Vector3 lastEnemyPosition;
 
-    [Header("Status")]
-    public float health = 100;
+    [Header("Hit")]
+    public bool isHit = false;
+    public float hitRememberDur = 1;
+
+    [Header("Hear")] 
+    public bool isHear = false;
+    public float hearRememberDur = 1;
 
     [Header("Seek Level")]
     public bool seekLevelDsc = true;
@@ -59,8 +71,32 @@ public class EnemyRobotAI : MonoBehaviour
         }
     }
 
+    public IEnumerator HitReaction(GameObject shooter)
+    {
+        yield return new WaitForSeconds(reactionDelay);
+        isHit = true;
+        enemyObject = shooter;
+
+        yield return new WaitForSeconds(hitRememberDur);
+        isHit = false;
+    }
+
+    public IEnumerator SoundReaction(Vector3 soundPosition)
+    {
+        yield return new WaitForSeconds(reactionDelay);
+        isHear = true;
+        seekLevel = 100;
+        lastEnemyPosition = soundPosition;
+        seekPointReached = false;
+
+        yield return new WaitForSeconds(hearRememberDur);
+        isHear = false;
+    }
+
     public bool StartMove(Vector3 target)
     {
+        if (forceStop) return false;
+
         navAgent.isStopped = false;
         return navAgent.SetDestination(target);
     }
@@ -68,5 +104,11 @@ public class EnemyRobotAI : MonoBehaviour
     public void StopMove()
     {
         navAgent.isStopped = true;
+    }
+
+    public void OnDeath()
+    {
+        forceStop = true;
+        StopMove();
     }
 }

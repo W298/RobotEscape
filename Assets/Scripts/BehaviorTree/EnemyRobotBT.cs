@@ -1,10 +1,10 @@
 using System;
-using BehaviorTree;
+using BT;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRobotBT : BTree
+public class EnemyRobotBT : BehaviorTree
 {
     [NonSerialized]
     public EnemyRobotAI ai;
@@ -49,11 +49,20 @@ public class EnemyRobotBT : BTree
                         new Aim(this),
                         new Seek(this)
                     }),
-                    new Patrol(this)
+                    new Sequence(new List<Node>
+                    {
+                        new Walk(this),
+                        new Patrol(this)
+                    })
                 })
             })
         });
 
         return root;
+    }
+
+    public void OnDeath()
+    {
+        active = false;
     }
 }

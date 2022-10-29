@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using BehaviorTree;
+using BT;
 using UnityEngine;
 
 public class NeedReload : Node
 {
     private EnemyRobotBT ebt;
 
-    public NeedReload(BTree bt) : base(bt)
+    public NeedReload(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
     }

@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using BT;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Fire : Node
+public class IsHealthLow : Node
 {
     private EnemyRobotBT ebt;
+    private float threshold = 30;
 
-    public Fire(BehaviorTree bt) : base(bt)
+    public IsHealthLow(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
     }
 
     public override NodeState Evaluate()
     {
-        ebt.ai.inputHandler.isFire = true;
-
-        return NodeState.RUNNING;
+        return ebt.ai.statusController.health < threshold ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 }

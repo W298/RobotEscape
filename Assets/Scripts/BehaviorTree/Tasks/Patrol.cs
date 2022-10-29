@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using BehaviorTree;
+using BT;
 using UnityEngine;
 
 public class Patrol : Node
@@ -13,7 +13,7 @@ public class Patrol : Node
     private int current = 0;
     private int reverse = -1;
 
-    public Patrol(BTree bt) : base(bt)
+    public Patrol(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
         patrolWaitTimer = patrolWaitDuration;

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime;
-using BehaviorTree;
+using BT;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +13,7 @@ public class Seek : Node
     private float seekWaitTimer;
     private Vector3 seekPosition;
 
-    public Seek(BTree bt) : base(bt)
+    public Seek(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
         seekWaitTimer = seekWaitDuration;

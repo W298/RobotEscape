@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviorTree
+namespace BT
 {
     public enum NodeState
     {
@@ -16,7 +16,7 @@ namespace BehaviorTree
     {
         public NodeState state;
 
-        protected BTree bt;
+        protected BehaviorTree bt;
         protected List<Node> children;
 
         public Node()
@@ -25,7 +25,7 @@ namespace BehaviorTree
             this.children = new List<Node>();
         }
 
-        public Node(BTree bt)
+        public Node(BehaviorTree bt)
         {
             this.bt = bt;
             this.children = new List<Node>();

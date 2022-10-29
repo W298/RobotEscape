@@ -1,28 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using BehaviorTree;
+using BT;
 using UnityEngine;
 
 public class IsDetectEnemy : Node
 {
     private EnemyRobotBT ebt;
 
-    public IsDetectEnemy(BTree bt) : base(bt)
+    public IsDetectEnemy(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
     }
 
     public override NodeState Evaluate()
     {
-        GameObject enemy = ebt.ai.visonSensor.detectedObjectList.Find(o => o.name == "Player");
-        
-        ebt.ai.enemyObject = enemy;
-        if (enemy)
+        if (!ebt.ai.isHit)
+        {
+            GameObject enemy = ebt.ai.visonSensor.detectedObjectList.Find(o => o.name == "Player");
+            ebt.ai.enemyObject = enemy;
+        }
+
+        if (ebt.ai.enemyObject)
         {
             ebt.ai.seekLevel = 100;
             ebt.ai.seekLevelDsc = false;
-            ebt.ai.lastEnemyPosition = enemy.transform.position;
+            ebt.ai.lastEnemyPosition = ebt.ai.enemyObject.transform.position;
             ebt.ai.seekPointReached = false;
         }
         else
@@ -32,6 +35,6 @@ public class IsDetectEnemy : Node
 
         DebugExtension.DebugWireSphere(ebt.ai.lastEnemyPosition, Color.cyan, 0.5f);
 
-        return enemy ? NodeState.SUCCESS : NodeState.FAILURE;
+        return ebt.ai.enemyObject ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 }

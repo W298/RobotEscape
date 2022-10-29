@@ -2229,6 +2229,7 @@ MonoBehaviour:
   isFire: 0
   isAim: 0
   isCrouch: 0
+  isWalk: 0
   fireEvent:
     m_PersistentCalls:
       m_Calls:

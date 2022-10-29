@@ -1,22 +1,22 @@
+using BT;
 using System.Collections;
 using System.Collections.Generic;
-using BT;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Fire : Node
+public class Walk : Node
 {
     private EnemyRobotBT ebt;
 
-    public Fire(BehaviorTree bt) : base(bt)
+    public Walk(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
     }
 
     public override NodeState Evaluate()
     {
-        ebt.ai.inputHandler.isFire = true;
+        ebt.ai.inputHandler.isWalk = true;
+        ebt.ai.navAgent.speed = ebt.ai.inputHandler.maxSpeed / 3;
 
-        return NodeState.RUNNING;
+        return NodeState.SUCCESS;
     }
 }

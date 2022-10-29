@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using BehaviorTree;
+using BT;
 using UnityEngine;
 
 public class Aim : Node
 {
     private EnemyRobotBT ebt;
 
-    public Aim(BTree bt) : base(bt)
+    public Aim(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
     }

@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 7732613217257796706}
   - component: {fileID: 1305442460}
   - component: {fileID: 1567115030802915778}
+  - component: {fileID: 3397899419591280212}
   - component: {fileID: 757420663}
   - component: {fileID: 757420664}
   m_Layer: 7
@@ -185,7 +186,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -295,12 +296,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c077181487a35a4ba7add6fa4496dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reactionDelay: 0.5
   enemyObject: {fileID: 0}
   lastEnemyPosition: {x: 0, y: 0, z: 0}
-  health: 100
+  isHit: 0
+  hitRememberDur: 1
+  isHear: 0
+  hearRememberDur: 1
   seekLevelDsc: 1
   seekLevel: 0
   seekPointReached: 0
+  patrolPoints: {fileID: 0}
 --- !u!114 &1567115030802915778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +319,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2cd20872a320940a28fc6d48067e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3397899419591280212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331072638823750630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9171fe063aaa4a846bf3c80b47572b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 757420664}
+        m_TargetAssemblyTypeName: RobotAnimationController, Assembly-CSharp
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1305442460}
+        m_TargetAssemblyTypeName: EnemyRobotAI, Assembly-CSharp
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1567115030802915778}
+        m_TargetAssemblyTypeName: EnemyRobotBT, Assembly-CSharp
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  maxHealth: 100
+  health: 0
+  isDeath: 0
 --- !u!114 &757420663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +435,7 @@ MonoBehaviour:
   isFire: 0
   isAim: 0
   isCrouch: 0
+  isWalk: 0
   fireEvent:
     m_PersistentCalls:
       m_Calls:

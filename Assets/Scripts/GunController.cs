@@ -67,6 +67,7 @@ public class GunController : MonoBehaviour
 
     public int magCapacity = 30;
     public int totalAmmo = 30;
+    public int gunDamage = 5;
     public AmmoSystem ammoSystem;
 
     private void Start()
@@ -117,8 +118,14 @@ public class GunController : MonoBehaviour
         Instantiate(muzzleFlash, muzzleFireStart);
 
         RaycastHit hit = CheckHit();
-        if (hit.collider) SpawnHitParticle(hit.point, hit.normal);
-        
+        if (hit.collider)
+        {
+            SpawnHitParticle(hit.point, hit.normal);
+
+            var statusController = hit.collider.gameObject.GetComponent<RobotStatusController>();
+            statusController?.HitBullet(gunDamage, transform.root.gameObject);
+        }
+
         StartCoroutine(SpawnTrail(hit));
 
         audioSource.Play();

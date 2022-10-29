@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using BehaviorTree;
+using BT;
 using UnityEngine;
 
 public class Clear : Node
 {
     private EnemyRobotBT ebt;
 
-    public Clear(BTree bt) : base(bt)
+    public Clear(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
     }
@@ -16,6 +16,7 @@ public class Clear : Node
     {
         ebt.ai.inputHandler.isAim = false;
         ebt.ai.inputHandler.isFire = false;
+        ebt.ai.inputHandler.isWalk = false;
         ebt.ai.navAgent.speed = ebt.ai.inputHandler.maxSpeed;
         ebt.ai.StopMove();
 

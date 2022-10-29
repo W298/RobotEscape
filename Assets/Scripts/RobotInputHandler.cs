@@ -39,6 +39,7 @@ public class RobotInputHandler : MonoBehaviour
     public bool isFire = false;
     public bool isAim = false;
     public bool isCrouch = false;
+    public bool isWalk = false;
 
     [Header("Event Binding")]
     public UnityEvent fireEvent;
