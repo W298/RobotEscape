@@ -66,6 +66,17 @@ public class RobotInputHandler : MonoBehaviour
         reloadEvent.Invoke();
     }
 
+    public void OnDeath()
+    {
+        if (isAI) return;
+
+        movementAction.Disable();
+        crouchAction.Disable();
+        aimAction.Disable();
+        fireAction.Disable();
+        reloadAction.Disable();
+    }
+
     private void Awake()
     {
         aimController = GetComponentInChildren<RobotAimController>();

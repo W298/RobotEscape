@@ -23,7 +23,8 @@ public class RobotStatusController : MonoBehaviour
     {
         health -= damage;
         if (health <= 0 && !isDeath) Death();
-        StartCoroutine(ai.HitReaction(shooter));
+        
+        if (ai) StartCoroutine(ai.HitReaction(shooter));
     }
 
     private void Death()

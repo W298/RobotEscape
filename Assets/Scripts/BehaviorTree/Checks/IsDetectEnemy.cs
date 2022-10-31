@@ -17,7 +17,7 @@ public class IsDetectEnemy : Node
     {
         if (!ebt.ai.isHit)
         {
-            GameObject enemy = ebt.ai.visonSensor.detectedObjectList.Find(o => o.name == "Player");
+            GameObject enemy = ebt.ai.visonSensor.detectedObjectList.Find(o => o != null && !o.GetComponent<RobotStatusController>().isDeath && o.name == "Player");
             ebt.ai.enemyObject = enemy;
         }
 
