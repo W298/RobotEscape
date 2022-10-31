@@ -27,6 +27,7 @@ public class IsDetectEnemy : Node
             ebt.ai.seekLevelDsc = false;
             ebt.ai.lastEnemyPosition = ebt.ai.enemyObject.transform.position;
             ebt.ai.seekPointReached = false;
+            ebt.ai.closestCoverPoint = null;
         }
         else
         {

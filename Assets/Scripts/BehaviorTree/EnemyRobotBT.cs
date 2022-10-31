@@ -16,6 +16,21 @@ public class EnemyRobotBT : BehaviorTree
 
     protected override Node CreateTree()
     {
+        Node attackSequence = new Sequence(new List<Node>
+        {
+            new TakeDistance(this),
+            new Aim(this),
+            new Selector(new List<Node>
+            {
+                new Sequence(new List<Node>
+                {
+                    new NeedReload(this),
+                    new Reload(this)
+                }),
+                new Fire(this)
+            })
+        });
+
         Node root = new Sequence(new List<Node>
         {
             new Clear(this),
@@ -23,18 +38,29 @@ public class EnemyRobotBT : BehaviorTree
             {
                 new Sequence(new List<Node>
                 {
-                    new IsDetectEnemy(this),
-                    new TakeDistance(this),
-                    new Aim(this),
+                    new IsHealthLow(this, 30),
                     new Selector(new List<Node>
                     {
                         new Sequence(new List<Node>
                         {
-                            new NeedReload(this),
-                            new Reload(this)
+                            new IsDetectEnemy(this),
+                            new Selector(new List<Node>
+                            {
+                                new Sequence(new List<Node>
+                                {
+                                    new IsHealthLow(this, 20),
+                                    attackSequence
+                                }),
+                                new Cover(this)
+                            })
                         }),
-                        new Fire(this)
+                        new Cover(this)
                     })
+                }),
+                new Sequence(new List<Node>
+                {
+                    new IsDetectEnemy(this),
+                    attackSequence
                 }),
                 new Sequence(new List<Node>
                 {

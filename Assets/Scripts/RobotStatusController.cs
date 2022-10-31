@@ -13,10 +13,37 @@ public class RobotStatusController : MonoBehaviour
     public float health;
     public bool isDeath = false;
 
+    public float healthHealAmount = 2f;
+    public float healthHealInterval = 2f;
+    private float healthHealTimer;
+
     private void Start()
     {
         ai = GetComponent<EnemyRobotAI>();
         health = maxHealth;
+        healthHealTimer = healthHealInterval;
+    }
+
+    private void FixedUpdate()
+    {
+        healthHealTimer -= Time.deltaTime;
+        if (healthHealTimer < 0)
+        {
+            healthHealTimer += healthHealInterval;
+            Heal(healthHealAmount);
+        }
+    }
+
+    private bool Heal(float amount)
+    {
+        if (health + amount > maxHealth)
+        {
+            health = maxHealth;
+            return true;
+        }
+
+        health += amount;
+        return false;
     }
 
     public void HitBullet(int damage, GameObject shooter)

@@ -42,10 +42,14 @@ public class EnemyRobotAI : MonoBehaviour
 
     [Header("Patrol")] public GameObject patrolPoints;
 
+    [Header("Cover")]
+    public GameObject closestCoverPoint = null;
+
     private void Start()
     {
         inputHandler = GetComponent<RobotInputHandler>();
         navAgent = GetComponent<NavMeshAgent>();
+        statusController = GetComponent<RobotStatusController>();
         gunController = GetComponentInChildren<GunController>();
 
         visonSensor = GetComponentInChildren<AIVisionSensor>();

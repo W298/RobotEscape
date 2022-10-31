@@ -307,6 +307,7 @@ MonoBehaviour:
   seekLevel: 0
   seekPointReached: 0
   patrolPoints: {fileID: 0}
+  closestCoverPoint: {fileID: 0}
 --- !u!114 &1567115030802915778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,6 +374,8 @@ MonoBehaviour:
   maxHealth: 100
   health: 0
   isDeath: 0
+  healthHealAmount: 5
+  healthHealInterval: 5
 --- !u!114 &757420663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2648,8 +2651,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567c9ead91281b747975b3078f8286cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 15
-  horizontalAngle: 45
+  distance: 10
+  horizontalAngle: 60
   verticalAngle: 8
   horizontalResolution: 24
   verticalResolution: 6

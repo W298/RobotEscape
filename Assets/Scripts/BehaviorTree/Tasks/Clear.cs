@@ -17,6 +17,7 @@ public class Clear : Node
         ebt.ai.inputHandler.isAim = false;
         ebt.ai.inputHandler.isFire = false;
         ebt.ai.inputHandler.isWalk = false;
+        ebt.ai.inputHandler.isCrouch = false;
         ebt.ai.navAgent.speed = ebt.ai.inputHandler.maxSpeed;
         ebt.ai.StopMove();
 

@@ -6,15 +6,16 @@ using UnityEngine;
 public class IsHealthLow : Node
 {
     private EnemyRobotBT ebt;
-    private float threshold = 30;
+    private float threshold;
 
-    public IsHealthLow(BehaviorTree bt) : base(bt)
+    public IsHealthLow(BehaviorTree bt, float threshold) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
+        this.threshold = threshold;
     }
 
     public override NodeState Evaluate()
     {
-        return ebt.ai.statusController.health < threshold ? NodeState.SUCCESS : NodeState.FAILURE;
+        return (ebt.ai.statusController.health <= threshold) ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 }
