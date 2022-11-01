@@ -6,7 +6,7 @@ using UnityEngine;
 public class IsSeekLevelHigh : Node
 {
     private EnemyRobotBT ebt;
-    private float threshold = 60;
+    private float threshold = 40;
 
     public IsSeekLevelHigh(BehaviorTree bt) : base(bt)
     {

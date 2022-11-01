@@ -2651,13 +2651,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567c9ead91281b747975b3078f8286cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 10
+  redZoneDistance: 8.5
+  yellowZoneDistance: 12.5
   horizontalAngle: 60
   verticalAngle: 8
   horizontalResolution: 24
   verticalResolution: 6
-  scanInterval: 0.5
-  detectedObjectList: []
+  scanInterval: 0
+  yellowZoneObjectList: []
+  redZoneObjectList: []
 --- !u!114 &1233638037
 MonoBehaviour:
   m_ObjectHideFlags: 0

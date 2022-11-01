@@ -8,17 +8,47 @@ public class IsDetectEnemy : Node
 {
     private EnemyRobotBT ebt;
 
+    private float seekLevelAscSpeed = 0.05f;
+    private float seekLevelAscTimer;
+
     public IsDetectEnemy(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
+
+        seekLevelAscTimer = seekLevelAscSpeed;
     }
 
     public override NodeState Evaluate()
     {
         if (!ebt.ai.isHit)
         {
-            GameObject enemy = ebt.ai.visonSensor.detectedObjectList.Find(o => o != null && !o.GetComponent<RobotStatusController>().isDeath && o.name == "Player");
-            ebt.ai.enemyObject = enemy;
+            var redZoneEnemy = ebt.ai.visonSensor.redZoneObjectList.Find(o => o != null && !o.GetComponent<RobotStatusController>().isDeath && o.name == "Player");
+
+            ebt.ai.enemyObject = redZoneEnemy;
+
+            if (!redZoneEnemy)
+            {
+                var yellowZoneEnemy = ebt.ai.visonSensor.yellowZoneObjectList.Find(o =>
+                    o != null && !o.GetComponent<RobotStatusController>().isDeath && o.name == "Player");
+
+                if (yellowZoneEnemy)
+                {
+                    ebt.ai.seekLevelDsc = false;
+
+                    seekLevelAscTimer -= Time.deltaTime;
+                    if (seekLevelAscTimer < 0)
+                    {
+                        seekLevelAscTimer += seekLevelAscSpeed;
+                        ebt.ai.seekLevel++;
+                        ebt.ai.lastEnemyPosition = yellowZoneEnemy.transform.position;
+                    }
+
+                    if (ebt.ai.seekLevel >= 80)
+                    {
+                        ebt.ai.enemyObject = yellowZoneEnemy;
+                    }
+                }
+            }
         }
 
         if (ebt.ai.enemyObject)

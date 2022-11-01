@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AIVisionSensor : MonoBehaviour
 {
-    public float distance = 10;
+    public float redZoneDistance = 8.5f;
+    public float yellowZoneDistance = 12.5f;
 
     [Header("Angle")]
     [Range(0, 180)]
@@ -22,11 +23,37 @@ public class AIVisionSensor : MonoBehaviour
     public float scanInterval = 0.5f;
     private float scanTimer;
 
-    [Header("Result")] public List<GameObject> detectedObjectList = new();
+    [Header("Result")] 
+    public List<GameObject> yellowZoneObjectList = new();
+    public List<GameObject> redZoneObjectList = new();
+
+    private void Ray(float currentVAngle, float currentHAngle, int v, int h, float distance, List<GameObject> objectList)
+    {
+        Vector3 point = transform.position + Quaternion.Euler(currentVAngle, currentHAngle, 0) * transform.forward * distance;
+
+        Physics.Linecast(transform.position, point, out RaycastHit hit, 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Object"));
+
+        if ((h == 0 || h == horizontalResolution - 1) && v == verticalResolution / 2)
+        {
+            Debug.DrawLine(transform.position, hit.collider ? hit.point : point, Color.red, scanInterval);
+        }
+
+        if (v == verticalResolution / 2)
+        {
+            DebugExtension.DebugPoint(point, objectList == yellowZoneObjectList ? Color.yellow : Color.red, 0.5f, scanInterval);
+        }
+
+        if (hit.collider && hit.collider.gameObject.layer == LayerMask.NameToLayer("Object"))
+        {
+            var detectedObject = hit.collider.gameObject;
+            if (!objectList.Contains(detectedObject)) objectList.Add(detectedObject);
+        }
+    }
 
     private void Scan()
     {
-        detectedObjectList.Clear();
+        yellowZoneObjectList.Clear();
+        redZoneObjectList.Clear();
 
         float currentVAngle = -verticalAngle;
         float deltaVAngle = (verticalAngle * 2) / (verticalResolution - 1);
@@ -36,16 +63,8 @@ public class AIVisionSensor : MonoBehaviour
             float deltaHAngle = (horizontalAngle * 2) / (horizontalResolution - 1);
             for (int h = 0; h < horizontalResolution; h++)
             {
-                Vector3 point = transform.position + Quaternion.Euler(currentVAngle, currentHAngle, 0) * transform.forward * distance;
-                Physics.Linecast(transform.position, point, out RaycastHit hit, 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Object"));
-                
-                if ((h == 0 || h == horizontalResolution - 1) && v == 0) Debug.DrawLine(transform.position, hit.collider ? hit.point : point, Color.red, scanInterval);
-
-                if (hit.collider && hit.collider.gameObject.layer == LayerMask.NameToLayer("Object"))
-                {
-                    var detectedObject = hit.collider.gameObject;
-                    if (!detectedObjectList.Contains(detectedObject)) detectedObjectList.Add(detectedObject);
-                }
+                Ray(currentVAngle, currentHAngle, v, h, yellowZoneDistance, yellowZoneObjectList);
+                Ray(currentVAngle, currentHAngle, v, h, redZoneDistance, redZoneObjectList);
 
                 currentHAngle += deltaHAngle;
             }

@@ -14,6 +14,6 @@ public class IsDetectObject : Node
 
     public override NodeState Evaluate()
     {
-        return ebt.ai.visonSensor.detectedObjectList.Count != 0 ? NodeState.SUCCESS : NodeState.FAILURE;
+        return ebt.ai.visonSensor.redZoneObjectList.Count != 0 ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 }
