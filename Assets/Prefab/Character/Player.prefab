@@ -2098,10 +2098,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathEvent:
     m_PersistentCalls:
-      m_Calls: []
-  maxHealth: 100
+      m_Calls:
+      - m_Target: {fileID: 6710449844171231875}
+        m_TargetAssemblyTypeName: RobotAnimationController, Assembly-CSharp
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6710449844171231879}
+        m_TargetAssemblyTypeName: RobotInputHandler, Assembly-CSharp
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  maxHealth: 10000
   health: 0
   isDeath: 0
+  healthHealAmount: 2
+  healthHealInterval: 2
 --- !u!114 &6710449844171231875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6411,7 +6437,7 @@ PrefabInstance:
     - target: {fileID: 5068976619487244169, guid: a66d64962dad7b441b895147b3616981,
         type: 3}
       propertyPath: totalAmmo
-      value: 60
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5068976619487244169, guid: a66d64962dad7b441b895147b3616981,
         type: 3}

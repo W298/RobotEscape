@@ -7,7 +7,6 @@ namespace BT
 {
     public abstract class BehaviorTree : MonoBehaviour
     {
-        protected bool active = true;
         private Node _root = null;
 
         private void Start()
@@ -16,8 +15,8 @@ namespace BT
         }
 
         private void FixedUpdate()
-        {
-            if (active) _root?.Evaluate();
+        { 
+            _root?.Evaluate();
         }
 
         protected abstract Node CreateTree();

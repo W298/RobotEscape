@@ -14,7 +14,7 @@ public class EnemyRobotAI : MonoBehaviour
     [NonSerialized] public AISoundSensor soundSensor;
     [NonSerialized] public RobotStatusController statusController;
 
-    private bool forceStop = false;
+    private EnemyRobotBT bt;
 
     [Header("Reaction")]
     public float reactionDelay = 0.5f;
@@ -51,6 +51,8 @@ public class EnemyRobotAI : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         statusController = GetComponent<RobotStatusController>();
         gunController = GetComponentInChildren<GunController>();
+
+        bt = GetComponent<EnemyRobotBT>();
 
         visonSensor = GetComponentInChildren<AIVisionSensor>();
         soundSensor = GetComponentInChildren<AISoundSensor>();
@@ -99,8 +101,6 @@ public class EnemyRobotAI : MonoBehaviour
 
     public bool StartMove(Vector3 target)
     {
-        if (forceStop) return false;
-
         navAgent.isStopped = false;
         return navAgent.SetDestination(target);
     }
@@ -112,7 +112,7 @@ public class EnemyRobotAI : MonoBehaviour
 
     public void OnDeath()
     {
-        forceStop = true;
-        StopMove();
+        navAgent.enabled = false;
+        bt.enabled = false;
     }
 }

@@ -68,6 +68,8 @@ public class RobotInputHandler : MonoBehaviour
 
     public void OnDeath()
     {
+        aimController.enabled = false;
+
         if (isAI) return;
 
         movementAction.Disable();

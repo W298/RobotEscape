@@ -86,9 +86,4 @@ public class EnemyRobotBT : BehaviorTree
 
         return root;
     }
-
-    public void OnDeath()
-    {
-        active = false;
-    }
 }

@@ -4247,30 +4247,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4744073322978215989}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1068927739 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6710449844171231879, guid: ba949abd89db40641a224358a7d0cda8,
-    type: 3}
-  m_PrefabInstance: {fileID: 4744073322978215989}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068927737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f5430276c55f646b674181e9a88a06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1068927740 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6710449844171231875, guid: ba949abd89db40641a224358a7d0cda8,
-    type: 3}
-  m_PrefabInstance: {fileID: 4744073322978215989}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068927737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a73515bb31d61964bb21666db1caea86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1103863861
 GameObject:
   m_ObjectHideFlags: 0
@@ -7449,80 +7425,5 @@ PrefabInstance:
       propertyPath: mainCam
       value: 
       objectReference: {fileID: 1549481460}
-    - target: {fileID: 8602917798653275027, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: totalAmmo
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: maxHealth
-      value: 10000
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1068927740}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1068927739}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnDeath
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: OnDeath
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: RobotAnimationController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: RobotInputHandler, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132500826740813799, guid: ba949abd89db40641a224358a7d0cda8,
-        type: 3}
-      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba949abd89db40641a224358a7d0cda8, type: 3}

@@ -49,7 +49,11 @@ public class RobotStatusController : MonoBehaviour
     public void HitBullet(int damage, GameObject shooter)
     {
         health -= damage;
-        if (health <= 0 && !isDeath) Death();
+        if (health <= 0 && !isDeath)
+        {
+            health = 0;
+            Death();
+        }
         
         if (ai) StartCoroutine(ai.HitReaction(shooter));
     }
