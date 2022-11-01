@@ -6376,7 +6376,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 138408, guid: a66d64962dad7b441b895147b3616981, type: 3}
       propertyPath: m_Name
-      value: SciFiGunHeavyWhite
+      value: Rifle
       objectReference: {fileID: 0}
     - target: {fileID: 402888, guid: a66d64962dad7b441b895147b3616981, type: 3}
       propertyPath: m_RootOrder
@@ -6450,6 +6450,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7158678342862884081, guid: aa3c3ced8ade6ad4593318507357029a,
         type: 3}
+    - target: {fileID: 5068976619487244169, guid: a66d64962dad7b441b895147b3616981,
+        type: 3}
+      propertyPath: circleDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5068976619487244169, guid: a66d64962dad7b441b895147b3616981,
         type: 3}
       propertyPath: fireSoundRange

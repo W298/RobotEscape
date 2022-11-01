@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2347408}
   - component: {fileID: 5068976619487244169}
   m_Layer: 0
-  m_Name: SciFiGunHeavyWhite
+  m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,12 +103,16 @@ MonoBehaviour:
     type: 3}
   muzzleFireStart: {fileID: 1884267365859459378}
   audioClip: {fileID: 8300000, guid: 0e5ec5d798406aa4699be8c44dd7599f, type: 3}
+  fireSoundRange: 20
   bulletTrail: {fileID: 8732727837399591817, guid: 01147ea8afd07c44e80681eb12b160fa,
     type: 3}
   hitParticle: {fileID: 7158678342862884081, guid: aa3c3ced8ade6ad4593318507357029a,
     type: 3}
   fireMode: 2
   fireDelay: 0.1
+  magCapacity: 30
+  totalAmmo: 30
+  gunDamage: 5
 --- !u!1 &127447266581866209
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,14 +167,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215763828034840208}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0435, z: 0.5785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 402888}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6371646382686534696
 GameObject:
   m_ObjectHideFlags: 0

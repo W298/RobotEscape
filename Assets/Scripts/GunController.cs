@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum FIREMODE
@@ -59,6 +60,10 @@ public class GunController : MonoBehaviour
 
     private PlayerCameraController camController;
 
+    [Header("Accuracy")] 
+    public float circleRadius = 0.5f;
+    public float circleDistance = 10f;
+
     [Header("Mode")]
     public FIREMODE fireMode = FIREMODE.FULL;
     public float fireDelay = 0.1f;
@@ -79,9 +84,30 @@ public class GunController : MonoBehaviour
         ammoSystem = new AmmoSystem(magCapacity, totalAmmo);
     }
 
-    private RaycastHit CheckHit()
+    private void FixedUpdate()
     {
-        Physics.Raycast(muzzleFireStart.position, muzzleFireStart.right, out RaycastHit hit, 100);
+        // DebugExtension.DebugCircle(muzzleFireStart.transform.position + muzzleFireStart.forward * circleDistance, muzzleFireStart.forward, Color.yellow, circleRadius);
+    }
+
+    private Vector3 ApplyAccuracy()
+    {
+        Vector2 randomOffset = Random.insideUnitCircle;
+        randomOffset *= circleRadius;
+
+        Vector3 destination = muzzleFireStart.transform.position;
+        destination += muzzleFireStart.forward * circleDistance;
+        destination += muzzleFireStart.up * randomOffset.y;
+        destination += muzzleFireStart.right * randomOffset.x;
+
+        // DebugExtension.DebugPoint(destination, Color.yellow, 0.5f, 1f);
+
+        return destination;
+    }
+
+    private RaycastHit CheckHit(Vector3 destination)
+    {
+        Physics.Raycast(muzzleFireStart.position, destination - muzzleFireStart.position, out RaycastHit hit, 100);
+
         return hit;
     }
 
@@ -115,9 +141,10 @@ public class GunController : MonoBehaviour
         if (ammoSystem.magAmmo <= 0) return;
         ammoSystem.magAmmo--;
 
-        Instantiate(muzzleFlash, muzzleFireStart);
+        GameObject muzzleFlashGameObject = Instantiate(muzzleFlash, muzzleFireStart);
+        muzzleFlashGameObject.transform.Rotate(Vector3.up, -90);
 
-        RaycastHit hit = CheckHit();
+        RaycastHit hit = CheckHit(ApplyAccuracy());
         if (hit.collider)
         {
             SpawnHitParticle(hit.point, hit.normal);
