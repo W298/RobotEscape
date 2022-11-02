@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -67,11 +68,6 @@ public class EnemyRobotAI : MonoBehaviour
     {
         detectLevel.Update();
         seekLevel.Update();
-    }
-
-    private void TestFunc()
-    {
-        Debug.Log(seekLevel);
     }
 
     public IEnumerator HitReaction(GameObject shooter)
