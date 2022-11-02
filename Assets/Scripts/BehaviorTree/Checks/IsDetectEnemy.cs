@@ -8,14 +8,20 @@ public class IsDetectEnemy : Node
 {
     private EnemyRobotBT ebt;
 
-    private float seekLevelAscSpeed = 0.05f;
-    private float seekLevelAscTimer;
+    private Timer detectLevelStayTimer;
 
     public IsDetectEnemy(BehaviorTree bt) : base(bt)
     {
         ebt = (EnemyRobotBT)bt;
 
-        seekLevelAscTimer = seekLevelAscSpeed;
+        detectLevelStayTimer = new Timer(2f, () =>
+        {
+            ebt.ai.detectLevel.decTimer.active = true;
+
+            detectLevelStayTimer.active = false;
+            detectLevelStayTimer.Reset();
+        });
+        detectLevelStayTimer.active = false;
     }
 
     public override NodeState Evaluate()
@@ -33,37 +39,41 @@ public class IsDetectEnemy : Node
 
                 if (yellowZoneEnemy)
                 {
-                    ebt.ai.seekLevelDsc = false;
+                    ebt.ai.detectLevel.incTimer.active = true;
+                    ebt.ai.detectLevel.decTimer.active = false;
 
-                    seekLevelAscTimer -= Time.deltaTime;
-                    if (seekLevelAscTimer < 0)
-                    {
-                        seekLevelAscTimer += seekLevelAscSpeed;
-                        ebt.ai.seekLevel++;
-                        ebt.ai.lastEnemyPosition = yellowZoneEnemy.transform.position;
-                    }
-
-                    if (ebt.ai.seekLevel >= 80)
+                    if (ebt.ai.detectLevel.currentLevel >= 80)
                     {
                         ebt.ai.enemyObject = yellowZoneEnemy;
                     }
+                }
+                else
+                {
+                    if (ebt.ai.detectLevel.incTimer.active)
+                    {
+                        detectLevelStayTimer.active = true;
+                    }
+
+                    ebt.ai.detectLevel.incTimer.active = false;
                 }
             }
         }
 
         if (ebt.ai.enemyObject)
         {
-            ebt.ai.seekLevel = 100;
-            ebt.ai.seekLevelDsc = false;
+            ebt.ai.seekLevel.currentLevel = 100;
+            ebt.ai.seekLevel.decTimer.active = false;
             ebt.ai.lastEnemyPosition = ebt.ai.enemyObject.transform.position;
             ebt.ai.seekPointReached = false;
             ebt.ai.closestCoverPoint = null;
         }
         else
         {
-            ebt.ai.seekLevelDsc = true;
+            ebt.ai.seekLevel.decTimer.active = true;
         }
 
+        detectLevelStayTimer.Update();
+        
         DebugExtension.DebugWireSphere(ebt.ai.lastEnemyPosition, Color.cyan, 0.5f);
 
         return ebt.ai.enemyObject ? NodeState.SUCCESS : NodeState.FAILURE;

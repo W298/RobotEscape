@@ -6,7 +6,7 @@ using UnityEngine;
 public class IsSeekLevelHigh : Node
 {
     private EnemyRobotBT ebt;
-    private float threshold = 40;
+    private float threshold = 60;
 
     public IsSeekLevelHigh(BehaviorTree bt) : base(bt)
     {
@@ -15,6 +15,6 @@ public class IsSeekLevelHigh : Node
 
     public override NodeState Evaluate()
     {
-        return ebt.ai.seekLevel > threshold ? NodeState.SUCCESS : NodeState.FAILURE;
+        return ebt.ai.seekLevel.currentLevel > threshold ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 }

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem.Android;
 
 public class EnemyRobotAI : MonoBehaviour
 {
@@ -31,11 +30,9 @@ public class EnemyRobotAI : MonoBehaviour
     public bool isHear = false;
     public float hearRememberDur = 1;
 
-    [Header("Seek Level")]
-    public bool seekLevelDsc = true;
-    public float seekLevel = 0;
-    private float seekLevelDscSpeed = 1;
-    private float seekLevelDscTimer;
+    [Header("Level")]
+    public LevelController detectLevel;
+    public LevelController seekLevel;
 
     [Header("Seek")]
     public bool seekPointReached = false;
@@ -59,22 +56,22 @@ public class EnemyRobotAI : MonoBehaviour
 
         navAgent.updateRotation = false;
 
-        seekLevelDscTimer = seekLevelDscSpeed;
+        detectLevel = new LevelController(0, 1f / 40f, 1f / 40f);
+        detectLevel.incTimer.active = false;
+
+        seekLevel = new LevelController(0, 1f, 1f);
+        seekLevel.incTimer.active = false;
     }
 
     private void FixedUpdate()
     {
-        if (seekLevelDsc) DecreaseSeekLevel();
+        detectLevel.Update();
+        seekLevel.Update();
     }
 
-    private void DecreaseSeekLevel()
+    private void TestFunc()
     {
-        seekLevelDscTimer -= Time.deltaTime;
-        if (seekLevelDscTimer < 0)
-        {
-            seekLevelDscTimer += seekLevelDscSpeed;
-            if (seekLevel > 0) seekLevel--;
-        }
+        Debug.Log(seekLevel);
     }
 
     public IEnumerator HitReaction(GameObject shooter)
@@ -91,7 +88,7 @@ public class EnemyRobotAI : MonoBehaviour
     {
         yield return new WaitForSeconds(reactionDelay);
         isHear = true;
-        seekLevel = 65;
+        seekLevel.currentLevel = 65;
         lastEnemyPosition = soundPosition;
         seekPointReached = false;
 
