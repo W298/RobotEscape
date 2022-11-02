@@ -88,7 +88,7 @@ public class EnemyRobotAI : MonoBehaviour
     {
         yield return new WaitForSeconds(reactionDelay);
         isHear = true;
-        seekLevel.currentLevel = 65;
+        seekLevel.currentLevel = 100;
         lastEnemyPosition = soundPosition;
         seekPointReached = false;
 

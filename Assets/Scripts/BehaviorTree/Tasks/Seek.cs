@@ -24,7 +24,7 @@ public class Seek : Node
         if (!ebt.ai.seekPointReached) seekPosition = ebt.ai.lastEnemyPosition;
 
         float remainDistance = Vector3.Distance(ebt.ai.navAgent.transform.position, seekPosition);
-        if (remainDistance <= ebt.ai.navAgent.stoppingDistance)
+        if (remainDistance <= ebt.ai.navAgent.stoppingDistance * 2)
         {
             seekWaitTimer -= Time.deltaTime;
             if (seekWaitTimer < 0)
