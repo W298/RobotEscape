@@ -57,6 +57,10 @@ public class IsDetectEnemy : Node
                     ebt.ai.detectLevel.incTimer.active = false;
                 }
             }
+            else
+            {
+                ebt.ai.detectLevel.currentLevel = 100;
+            }
         }
 
         if (ebt.ai.enemyObject)

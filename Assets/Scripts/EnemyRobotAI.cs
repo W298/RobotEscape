@@ -80,9 +80,11 @@ public class EnemyRobotAI : MonoBehaviour
         isHit = false;
     }
 
-    public IEnumerator SoundReaction(Vector3 soundPosition)
+    public IEnumerator SoundReaction(Vector3 soundPosition, GameObject owner)
     {
         yield return new WaitForSeconds(reactionDelay);
+        
+        if (owner.GetComponent<EnemyRobotAI>()) yield break;
         isHear = true;
         seekLevel.currentLevel = 100;
         lastEnemyPosition = soundPosition;

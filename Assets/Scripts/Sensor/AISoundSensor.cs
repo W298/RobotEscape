@@ -22,6 +22,6 @@ public class AISoundSensor : MonoBehaviour
 
         lastDetectedPosition = soundPosition;
         lastDetectedOwner = owner;
-        StartCoroutine(ai.SoundReaction(soundPosition));
+        StartCoroutine(ai.SoundReaction(soundPosition, owner));
     }
 }
