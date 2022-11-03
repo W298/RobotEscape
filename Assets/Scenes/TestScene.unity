@@ -3130,10 +3130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 335306655, guid: 37d757cfaf1ee0a4f90f8a36046e95ed, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1305442460, guid: 37d757cfaf1ee0a4f90f8a36046e95ed, type: 3}
       propertyPath: patrolPoints
       value: 
@@ -5398,6 +5394,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1935930241377685016, guid: 37d757cfaf1ee0a4f90f8a36046e95ed,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3397899419591280212, guid: 37d757cfaf1ee0a4f90f8a36046e95ed,
         type: 3}
       propertyPath: maxHealth
@@ -5472,6 +5473,11 @@ PrefabInstance:
         type: 3}
       propertyPath: horizontalAngle
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854739169292933822, guid: 37d757cfaf1ee0a4f90f8a36046e95ed,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37d757cfaf1ee0a4f90f8a36046e95ed, type: 3}
@@ -5687,6 +5693,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1935930241377685016, guid: 37d757cfaf1ee0a4f90f8a36046e95ed,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3220709226187708557, guid: 37d757cfaf1ee0a4f90f8a36046e95ed,
         type: 3}
       propertyPath: m_StoppingDistance
@@ -5766,6 +5777,11 @@ PrefabInstance:
         type: 3}
       propertyPath: horizontalAngle
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854739169292933822, guid: 37d757cfaf1ee0a4f90f8a36046e95ed,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37d757cfaf1ee0a4f90f8a36046e95ed, type: 3}
@@ -6730,6 +6746,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1935930241377685016, guid: 37d757cfaf1ee0a4f90f8a36046e95ed,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3397899419591280212, guid: 37d757cfaf1ee0a4f90f8a36046e95ed,
         type: 3}
       propertyPath: maxHealth
@@ -6804,6 +6825,11 @@ PrefabInstance:
         type: 3}
       propertyPath: horizontalAngle
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854739169292933822, guid: 37d757cfaf1ee0a4f90f8a36046e95ed,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37d757cfaf1ee0a4f90f8a36046e95ed, type: 3}
