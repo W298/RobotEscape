@@ -86,7 +86,7 @@ public class GunController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // DebugExtension.DebugCircle(muzzleFireStart.transform.position + muzzleFireStart.forward * circleDistance, muzzleFireStart.forward, Color.yellow, circleRadius);
+        DebugExtension.DebugCircle(muzzleFireStart.transform.position + muzzleFireStart.forward * circleDistance, muzzleFireStart.forward, Color.yellow, circleRadius);
     }
 
     private Vector3 ApplyAccuracy()
@@ -99,7 +99,7 @@ public class GunController : MonoBehaviour
         destination += muzzleFireStart.up * randomOffset.y;
         destination += muzzleFireStart.right * randomOffset.x;
 
-        // DebugExtension.DebugPoint(destination, Color.yellow, 0.5f, 1f);
+        DebugExtension.DebugPoint(destination, Color.yellow, 0.5f, 1f);
 
         return destination;
     }
@@ -115,7 +115,7 @@ public class GunController : MonoBehaviour
     {
         GameObject trail = Instantiate(bulletTrail, muzzleFireStart.position, muzzleFireStart.rotation);
 
-        Vector3 hitPoint = hit.collider ? hit.point : muzzleFireStart.position + muzzleFireStart.right * 100;
+        Vector3 hitPoint = hit.collider ? hit.point : muzzleFireStart.position + muzzleFireStart.forward * 100;
         Vector3 startPoint = muzzleFireStart.position;
         float distance = Vector3.Distance(startPoint, hitPoint);
         Vector3 direction = (hitPoint - startPoint).normalized;
