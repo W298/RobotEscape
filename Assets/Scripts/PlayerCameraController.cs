@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public struct ShakeParameter
@@ -52,8 +53,18 @@ public class PlayerCameraController : MonoBehaviour
         x *= 4;
         y *= 4;
 
-        Vector3 rotatedVector = Quaternion.Inverse(transform.rotation) * new Vector3(x, 0, y);
+        var xx = x * Mathf.Cos(Mathf.PI / 4) - y * Mathf.Sin(Mathf.PI / 4);
+        var yy = x * Mathf.Sin(Mathf.PI / 4) + y * Mathf.Cos(Mathf.PI / 4);
+
+        Vector3 rotatedVector = Quaternion.Inverse(transform.rotation) * new Vector3(xx, 0, yy);
+
         vcam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset = rotatedVector;
+    }
+
+    private void ObstacleCheck()
+    {
+        Physics.Linecast(mainCam.transform.position, transform.position, out RaycastHit hit,
+            1 << LayerMask.NameToLayer("Obstacle"));
     }
 
     private void FixedUpdate()
@@ -65,5 +76,6 @@ public class PlayerCameraController : MonoBehaviour
         }
 
         MoveCamera();
+        ObstacleCheck();
     }
 }

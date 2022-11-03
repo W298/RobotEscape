@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -118,6 +119,9 @@ public class RobotInputHandler : MonoBehaviour
     private void FixedUpdate()
     {
         movementAxis = movementAction.ReadValue<Vector2>();
+        var a = movementAxis.x * Mathf.Cos(Mathf.PI / 4) - movementAxis.y * Mathf.Sin(Mathf.PI / 4);
+        var b = movementAxis.x * Mathf.Sin(Mathf.PI / 4) + movementAxis.y * Mathf.Cos(Mathf.PI / 4);
+        movementAxis = new Vector2(a, b);
 
         if (aimAction.enabled) isAim = aimAction.ReadValue<float>() == 1;
         if (fireAction.enabled) isFire = isAim && fireAction.ReadValue<float>() == 1;
