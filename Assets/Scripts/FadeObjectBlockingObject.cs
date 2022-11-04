@@ -33,6 +33,16 @@ public class FadeObjectBlockingObject : MonoBehaviour
         StartCoroutine(CheckForObjects());
     }
 
+    private List<FadingObject> GetSiblings(FadingObject fadingObject)
+    {
+        if (fadingObject.transform.root.tag == "Binder")
+        {
+            return fadingObject.transform.root.GetComponentsInChildren<FadingObject>().ToList();
+        }
+
+        return fadingObject.transform.parent ? fadingObject.transform.parent.GetComponentsInChildren<FadingObject>().ToList() : new List<FadingObject> { fadingObject };
+    }
+
     private IEnumerator CheckForObjects()
     {
         while (true)
@@ -52,7 +62,7 @@ public class FadeObjectBlockingObject : MonoBehaviour
                     FadingObject fadingObject = GetFadingObjectFromHit(Hits[i]);
                     if (fadingObject == null) continue;
 
-                    var siblings = fadingObject.transform.parent ? fadingObject.transform.parent.GetComponentsInChildren<FadingObject>().ToList() : new List<FadingObject>{ fadingObject };
+                    var siblings = GetSiblings(fadingObject);
                     foreach (var sibling in siblings)
                     {
                         if (sibling != null && !ObjectsBlockingView.Contains(sibling))
@@ -93,7 +103,8 @@ public class FadeObjectBlockingObject : MonoBehaviour
             {
                 FadingObject hitFadingObject = GetFadingObjectFromHit(Hits[i]);
                 if (hitFadingObject == null) continue;
-                var siblings = hitFadingObject.transform.parent ? hitFadingObject.transform.parent.GetComponentsInChildren<FadingObject>().ToList() : new List<FadingObject>{ hitFadingObject };
+
+                var siblings = GetSiblings(hitFadingObject);
                 foreach (var sibling in siblings)
                 {
                     if (sibling != null && fadingObject == sibling)

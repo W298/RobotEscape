@@ -7,6 +7,7 @@ TagManager:
   - Robot
   - PatrolPoint
   - CoverPoint
+  - Binder
   layers:
   - Default
   - TransparentFX

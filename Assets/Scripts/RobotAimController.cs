@@ -29,7 +29,7 @@ public class RobotAimController : MonoBehaviour
         if (cam)
         {
             Ray ray = cam.mainCam.ScreenPointToRay(Input.mousePosition);
-            int layerMask = 1 << LayerMask.NameToLayer("Ground");
+            int layerMask = (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Obstacle"));
             Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask);
             targetPos = hit.collider ? hit.point : transform.root.position + transform.forward * 3;
         }
