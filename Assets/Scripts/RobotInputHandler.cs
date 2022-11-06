@@ -11,12 +11,14 @@ public class RobotInputHandler : MonoBehaviour
 {
     private RobotAimController aimController;
     private GunController gunController;
+    private PlayerUI playerUI;
 
     public InputAction movementAction;
     public InputAction fireAction;
     public InputAction aimAction;
     public InputAction crouchAction;
     public InputAction reloadAction;
+    public InputAction interactAction;
 
     private Rigidbody rigidbody;
     private NavMeshAgent navAgent;
@@ -82,6 +84,7 @@ public class RobotInputHandler : MonoBehaviour
         aimAction.Disable();
         fireAction.Disable();
         reloadAction.Disable();
+        interactAction.Disable();
     }
 
     private void SetCrossHair(bool active)
@@ -93,6 +96,7 @@ public class RobotInputHandler : MonoBehaviour
     {
         aimController = GetComponentInChildren<RobotAimController>();
         gunController = GetComponentInChildren<GunController>();
+        playerUI = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUI>();
 
         rigidbody = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
@@ -113,6 +117,7 @@ public class RobotInputHandler : MonoBehaviour
         aimAction.Enable();
         fireAction.Enable();
         reloadAction.Enable();
+        interactAction.Enable();
 
         fireAction.started += context => fireStartEvent.Invoke();
         fireAction.canceled += context => fireEndEvent.Invoke();
@@ -123,6 +128,10 @@ public class RobotInputHandler : MonoBehaviour
         };
 
         reloadAction.performed += Reload;
+        interactAction.performed += context =>
+        {
+            playerUI.interactObject?.GetComponentInChildren<BoxInteract>().Interact(gameObject);
+        };
     }
 
     private void FixedUpdate()

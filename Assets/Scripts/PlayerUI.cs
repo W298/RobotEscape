@@ -10,14 +10,34 @@ public class PlayerUI : MonoBehaviour
     private PlayerInventory playerInventory;
     private Animator animator;
 
+    private Canvas canvas;
     private Text ammoText;
     private GameObject ammoContainer;
     private Text healthText;
     private GameObject healthContainer;
     private Text aidText;
     private Text reloadText;
+    private RectTransform interactRect;
+    private Text descriptionText;
+
+    public GameObject interactObject = null;
 
     public GameObject ammoIconPrefab;
+
+    public void ShowInteractUI(GameObject interactObject)
+    {
+        this.interactObject = interactObject;
+    }
+
+    public void HideInteractUI()
+    {
+        this.interactObject = null;
+    }
+
+    public void SetInteractDescription(string text)
+    {
+        descriptionText.text = text;
+    }
 
     private void Start()
     {
@@ -27,12 +47,15 @@ public class PlayerUI : MonoBehaviour
         playerInventory = player.GetComponent<PlayerInventory>();
         animator = player.GetComponent<Animator>();
 
-        ammoText = transform.GetChild(0).GetComponent<Text>();
-        ammoContainer = transform.GetChild(1).gameObject;
-        healthText = transform.GetChild(3).GetComponent<Text>();
-        healthContainer = transform.GetChild(4).gameObject;
-        aidText = transform.GetChild(6).GetComponent<Text>();
-        reloadText = transform.GetChild(7).GetComponent<Text>();
+        canvas = transform.GetComponent<Canvas>();
+        ammoText = transform.Find("AmmoText").GetComponent<Text>();
+        ammoContainer = transform.Find("AmmoContainer").gameObject;
+        healthText = transform.Find("HealthText").GetComponent<Text>();
+        healthContainer = transform.Find("HealthContainer").gameObject;
+        aidText = transform.Find("AIDText").GetComponent<Text>();
+        reloadText = transform.Find("ReloadingText").GetComponent<Text>();
+        interactRect = transform.Find("Interact").GetComponent<RectTransform>();
+        descriptionText = transform.Find("Interact").Find("DescriptionImage").GetChild(0).GetComponent<Text>();
     }
 
     private void LateUpdate()
@@ -41,6 +64,16 @@ public class PlayerUI : MonoBehaviour
 
         ammoText.text = gunController.ammoSystem.magAmmo + " / " + gunController.ammoSystem.remainAmmo;
         healthText.text = ((int)statusController.health).ToString();
+
+        interactRect.gameObject.SetActive(interactObject != null);
+        if (interactObject)
+        {
+            var screenPos = Camera.main.WorldToScreenPoint(interactObject.transform.position);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, screenPos,
+                canvas.worldCamera, out Vector2 movePos);
+
+            interactRect.position = canvas.transform.TransformPoint(movePos + new Vector2(50, 50));
+        }
 
         var aidKit = playerInventory.GetItem("AidKit");
         aidText.text = "x " + (aidKit != null ? aidKit.count.ToString() : "0");

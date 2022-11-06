@@ -2271,6 +2271,23 @@ MonoBehaviour:
       m_Action: Reload
       m_Flags: 0
     m_Flags: 0
+  interactAction:
+    m_Name: Interact
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: bb98fd2a-2aa9-407c-a747-ed6d34e6faa0
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 61b1c9b2-c2d3-462c-8416-810fe261be4b
+      m_Path: <Keyboard>/f
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Interact
+      m_Flags: 0
+    m_Flags: 0
   movementVector: {x: 0, y: 0}
   isMoving: 0
   isFire: 0
