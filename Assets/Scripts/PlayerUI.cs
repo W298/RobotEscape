@@ -8,12 +8,14 @@ public class PlayerUI : MonoBehaviour
     private GunController gunController;
     private RobotStatusController statusController;
     private PlayerInventory playerInventory;
-    
+    private Animator animator;
+
     private Text ammoText;
     private GameObject ammoContainer;
     private Text healthText;
     private GameObject healthContainer;
     private Text aidText;
+    private Text reloadText;
 
     public GameObject ammoIconPrefab;
 
@@ -23,16 +25,20 @@ public class PlayerUI : MonoBehaviour
         gunController = player.GetComponentInChildren<GunController>();
         statusController = player.GetComponentInChildren<RobotStatusController>();
         playerInventory = player.GetComponent<PlayerInventory>();
+        animator = player.GetComponent<Animator>();
 
         ammoText = transform.GetChild(0).GetComponent<Text>();
         ammoContainer = transform.GetChild(1).gameObject;
         healthText = transform.GetChild(3).GetComponent<Text>();
         healthContainer = transform.GetChild(4).gameObject;
         aidText = transform.GetChild(6).GetComponent<Text>();
+        reloadText = transform.GetChild(7).GetComponent<Text>();
     }
 
     private void LateUpdate()
     {
+        reloadText.gameObject.SetActive(animator.GetBool("isReload"));
+
         ammoText.text = gunController.ammoSystem.magAmmo + " / " + gunController.ammoSystem.remainAmmo;
         healthText.text = ((int)statusController.health).ToString();
 
