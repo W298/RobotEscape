@@ -1889,7 +1889,9 @@ GameObject:
   - component: {fileID: 9132500826740813799}
   - component: {fileID: 6710449844171231875}
   - component: {fileID: 6710449844171231879}
+  - component: {fileID: 9106171258648233297}
   - component: {fileID: 6710449844171231882}
+  - component: {fileID: 1068927747}
   m_Layer: 7
   m_Name: Player
   m_TagString: Robot
@@ -2335,6 +2337,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9106171258648233297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3672606999070260480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc7e761539e0764c925bdf49e82d2a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6710449844171231882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2349,6 +2363,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
   vcam: {fileID: 0}
+--- !u!114 &1068927747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3672606999070260480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd212f2627c78e4685bd391d9d0f63e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  Target: {fileID: 336891752518831891}
+  Camera: {fileID: 0}
+  FadedAlpha: 0
+  RetainShadows: 0
+  TargetPositionOffset: {x: 0, y: 0, z: 0}
+  FadeSpeed: 10
+  ObjectsBlockingView: []
 --- !u!1 &3731056149221392473
 GameObject:
   m_ObjectHideFlags: 0
