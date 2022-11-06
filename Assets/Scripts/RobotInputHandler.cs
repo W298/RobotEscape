@@ -48,6 +48,10 @@ public class RobotInputHandler : MonoBehaviour
     public UnityEvent fireEndEvent;
     public UnityEvent reloadEvent;
 
+    [Header("CrossHair")] 
+    public Texture2D crossHairInactiveTexture;
+    public Texture2D crossHairTexture;
+
     private bool isAI = false;
 
     public Vector3 GetVelocity()
@@ -78,6 +82,11 @@ public class RobotInputHandler : MonoBehaviour
         aimAction.Disable();
         fireAction.Disable();
         reloadAction.Disable();
+    }
+
+    private void SetCrossHair(bool active)
+    {
+        Cursor.SetCursor(active ? crossHairTexture : crossHairInactiveTexture, Vector2.zero, CursorMode.Auto);
     }
 
     private void Awake()
@@ -145,5 +154,7 @@ public class RobotInputHandler : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(new Vector3(GetVelocity().x, 0, GetVelocity().z), Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime * 500);
         }
+
+        SetCrossHair(isAim);
     }
 }

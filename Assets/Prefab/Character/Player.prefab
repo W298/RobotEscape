@@ -2337,6 +2337,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  crossHairInactiveTexture: {fileID: 2800000, guid: 5f98475ae09428948bbdbadc5a950080,
+    type: 3}
+  crossHairTexture: {fileID: 2800000, guid: 4cedabab5370c38418e76a690a902c2b, type: 3}
 --- !u!114 &9106171258648233297
 MonoBehaviour:
   m_ObjectHideFlags: 0
