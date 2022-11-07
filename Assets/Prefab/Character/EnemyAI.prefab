@@ -715,6 +715,15 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  interactAction:
+    m_Name: Interact
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 096f3ab5-1cdb-4a59-80b9-9cec69620d60
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   movementVector: {x: 0, y: 0}
   isMoving: 0
   isFire: 0
@@ -781,6 +790,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  crossHairInactiveTexture: {fileID: 0}
+  crossHairTexture: {fileID: 0}
 --- !u!114 &757420664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3015,7 +3026,7 @@ MonoBehaviour:
   redZoneDistance: 8.5
   yellowZoneDistance: 12.5
   horizontalAngle: 60
-  verticalAngle: 8
+  verticalAngle: 20
   horizontalResolution: 24
   verticalResolution: 6
   scanInterval: 0

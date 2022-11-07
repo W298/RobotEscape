@@ -29,19 +29,17 @@ public class AIVisionSensor : MonoBehaviour
 
     private void Ray(float currentVAngle, float currentHAngle, int v, int h, float distance, List<GameObject> objectList)
     {
-        Vector3 point = transform.position + Quaternion.Euler(currentVAngle, currentHAngle, 0) * transform.forward * distance;
+        Vector3 point = transform.position +
+                        Quaternion.AngleAxis(currentVAngle, transform.right) * Quaternion.AngleAxis(currentHAngle, transform.up) * transform.forward * distance;
 
-        Physics.Linecast(transform.position, point, out RaycastHit hit, 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Object"));
+        Physics.Linecast(transform.position, point, out RaycastHit hit, 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Object") | 1 << LayerMask.NameToLayer("Ground"));
 
-        if ((h == 0 || h == horizontalResolution - 1) && v == verticalResolution / 2)
+        if ((h == 0 || h == horizontalResolution - 1) && (v == 0 || v == verticalResolution - 1))
         {
-            Debug.DrawLine(transform.position, hit.collider ? hit.point : point, Color.red, scanInterval);
+            Debug.DrawLine(transform.position, hit.collider ? hit.point : point, Color.white, scanInterval);
         }
 
-        if (v == verticalResolution / 2)
-        {
-            DebugExtension.DebugPoint(point, objectList == yellowZoneObjectList ? Color.yellow : Color.red, 0.5f, scanInterval);
-        }
+        DebugExtension.DebugPoint(point, Color.white, 0.25f, scanInterval);
 
         if (hit.collider && hit.collider.gameObject.layer == LayerMask.NameToLayer("Object"))
         {
