@@ -27,7 +27,7 @@ public class RobotAimController : MonoBehaviour
         int obstacleLayer = 1 << LayerMask.NameToLayer("Obstacle");
 
         Vector3 targetPos = transform.root.position;
-        if (enemyRobotAI && enemyRobotAI.inputHandler.isMoving)
+        if (enemyRobotAI && enemyRobotAI.navAgent.remainingDistance > 1.5f)
         {
             targetPos += enemyRobotAI.navAgent.velocity.normalized * 3;
         }
