@@ -130,7 +130,7 @@ public class RobotInputHandler : MonoBehaviour
         reloadAction.performed += Reload;
         interactAction.performed += context =>
         {
-            playerUI.interactObject?.GetComponentInChildren<BoxInteract>().Interact(gameObject);
+            playerUI?.interactObject?.GetComponentInChildren<BoxInteract>().Interact(gameObject);
         };
     }
 

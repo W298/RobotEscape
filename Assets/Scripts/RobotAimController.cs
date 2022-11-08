@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using EnemyRobotAIState;
 using UnityEngine;
 
 public class RobotAimController : MonoBehaviour
@@ -27,7 +26,16 @@ public class RobotAimController : MonoBehaviour
         int groundLayer = 1 << LayerMask.NameToLayer("Ground");
         int obstacleLayer = 1 << LayerMask.NameToLayer("Obstacle");
 
-        Vector3 targetPos = transform.position + (enemyRobotAI ? enemyRobotAI.navAgent.velocity : transform.forward * 3);
+        Vector3 targetPos = transform.root.position;
+        if (enemyRobotAI && enemyRobotAI.inputHandler.isMoving)
+        {
+            targetPos += enemyRobotAI.navAgent.velocity.normalized * 3;
+        }
+        else
+        {
+            targetPos += transform.root.forward * 3;
+        }
+
         targetPos.y = transform.root.position.y + (inputHandler.isCrouch ? 0.7f : 1.25f);
 
         if (cam)
