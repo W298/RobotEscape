@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AIVisionSensor : MonoBehaviour
 {
+
+    [Header("Distance")]
     public float redZoneDistance = 8.5f;
     public float yellowZoneDistance = 12.5f;
 
@@ -27,6 +29,11 @@ public class AIVisionSensor : MonoBehaviour
     public List<GameObject> yellowZoneObjectList = new();
     public List<GameObject> redZoneObjectList = new();
 
+    private bool CheckFriendly(Collider target)
+    {
+        return target.GetComponent<EnemyRobotAI>() != null || target.GetComponent<EnemyTurretAI>() != null;
+    }
+
     private void Ray(float currentVAngle, float currentHAngle, int v, int h, float distance, List<GameObject> objectList)
     {
         Vector3 point = transform.position +
@@ -41,7 +48,7 @@ public class AIVisionSensor : MonoBehaviour
 
         DebugExtension.DebugPoint(point, Color.white, 0.25f, scanInterval);
 
-        if (hit.collider && hit.collider.gameObject.layer == LayerMask.NameToLayer("Object"))
+        if (hit.collider && hit.collider.gameObject.layer == LayerMask.NameToLayer("Object") && !CheckFriendly(hit.collider))
         {
             var detectedObject = hit.collider.gameObject;
             if (!objectList.Contains(detectedObject)) objectList.Add(detectedObject);

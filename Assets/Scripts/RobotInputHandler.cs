@@ -158,7 +158,7 @@ public class RobotInputHandler : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime * 500);
         }
-        else if (isMoving)
+        else if (isMoving && GetVelocity().magnitude != 0)
         {
             Quaternion toRotation = Quaternion.LookRotation(new Vector3(GetVelocity().x, 0, GetVelocity().z), Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime * 500);

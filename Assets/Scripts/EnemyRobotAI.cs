@@ -17,7 +17,7 @@ public class EnemyRobotAI : MonoBehaviour
     private EnemyRobotBT bt;
 
     [Header("Reaction")]
-    public float reactionDelay = 0.5f;
+    public float reactionDelay = 1.5f;
 
     [Header("Detection")]
     public GameObject enemyObject = null;
@@ -57,7 +57,7 @@ public class EnemyRobotAI : MonoBehaviour
 
         navAgent.updateRotation = false;
 
-        detectLevel = new LevelController(0, 1f / 40f, 1f / 40f);
+        detectLevel = new LevelController(0, 1f / 30f, 1f / 30f);
         detectLevel.incTimer.active = false;
 
         seekLevel = new LevelController(0, 1f, 1f);
@@ -86,7 +86,7 @@ public class EnemyRobotAI : MonoBehaviour
         
         if (owner.GetComponent<EnemyRobotAI>()) yield break;
         isHear = true;
-        seekLevel.currentLevel = 100;
+        seekLevel.currentLevel = 80;
         lastEnemyPosition = soundPosition;
         seekPointReached = false;
 

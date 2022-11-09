@@ -103,11 +103,13 @@ MonoBehaviour:
     type: 3}
   muzzleFireStart: {fileID: 1884267365859459378}
   audioClip: {fileID: 8300000, guid: 0e5ec5d798406aa4699be8c44dd7599f, type: 3}
-  fireSoundRange: 20
+  fireSoundRange: 2.5
   bulletTrail: {fileID: 8732727837399591817, guid: 01147ea8afd07c44e80681eb12b160fa,
     type: 3}
   hitParticle: {fileID: 7158678342862884081, guid: aa3c3ced8ade6ad4593318507357029a,
     type: 3}
+  circleRadius: 0.5
+  circleDistance: 2
   fireMode: 2
   fireDelay: 0.1
   magCapacity: 30

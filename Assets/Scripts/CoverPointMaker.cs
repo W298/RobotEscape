@@ -140,6 +140,9 @@ public class CoverPointMaker : MonoBehaviour
 
             yield return null;
         }
+
+        horizontalDivide -= 2;
+        verticalDivide -= 2;
     }
 
     public void Run()

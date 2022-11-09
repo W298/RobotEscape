@@ -21,7 +21,7 @@ public class TakeDistance : Node
 
         switch (distance)
         {
-            case < 7.5f:
+            case < 8f:
                 ebt.ai.StartMove(ebt.ai.transform.position - direction * 5);
                 break;
             case > 10:
