@@ -43,7 +43,12 @@ public class TurretTowerInteract : MonoBehaviour
         hackText.text = "SUCCESS";
         hackText.color = new Color(0, 255, 0);
         
-        turretList.ForEach(turret => turret.Deactivate());
+        turretList.ForEach(turret =>
+        {
+            turret.Deactivate();
+            playerUI.GetComponentInChildren<MissionController>()
+                .SetMissionStatus("Main01_" + turret.name.Substring(7, 2), MissionStatus.COMPLETE);
+        });
     }
 
     private void Start()

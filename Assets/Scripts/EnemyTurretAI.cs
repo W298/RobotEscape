@@ -190,6 +190,7 @@ public class EnemyTurretAI : MonoBehaviour
     public void Deactivate()
     {
         animator.SetBool("isShoot", false);
+        canvas.gameObject.SetActive(false);
         currentState = EnemyTurretState.DEACTIVATED;
         laserRenderer.enabled = false;
     }
@@ -204,7 +205,7 @@ public class EnemyTurretAI : MonoBehaviour
         laserStartTransform = xAxisTransform.Find("LaserStart").transform;
         gunFireTransform = xAxisTransform.Find("GunFirePoint").transform;
         
-        canvas = GetComponentInChildren<Canvas>();
+        canvas = GetComponentInChildren<Canvas>(true);
         overheatRect = canvas.transform.GetChild(0).GetComponent<RectTransform>();
         overheatGageRect = overheatRect.GetChild(0).GetChild(0).GetComponent<RectTransform>();
         overheatText = overheatRect.GetChild(1).GetComponent<Text>();
