@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Experimental.Rendering;
 
+/*
 public class CoverPointEditor : EditorWindow
 {
     [MenuItem("Window/CoverPointMaker")]
@@ -24,6 +25,7 @@ public class CoverPointEditor : EditorWindow
         }
     }
 }
+*/
 
 [ExecuteInEditMode]
 public class CoverPointMaker : MonoBehaviour

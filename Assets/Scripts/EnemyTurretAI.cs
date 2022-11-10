@@ -8,7 +8,7 @@ public enum EnemyTurretState
     SEARCH,
     FIRE,
     OVERHEAT,
-    DISABLED
+    DEACTIVATED
 }
 
 public class EnemyTurretAI : MonoBehaviour
@@ -20,8 +20,11 @@ public class EnemyTurretAI : MonoBehaviour
     private LaserRenderer laserRenderer;
     private Transform laserStartTransform;
     private Transform gunFireTransform;
+    
     private Canvas canvas;
-    private RectTransform overheatTransform;
+    private RectTransform overheatRect;
+    private RectTransform overheatGageRect;
+    private Text overheatText;
 
     private float gunFireDelay = 1f / 5f;
     private float gunFireTimer;
@@ -184,6 +187,13 @@ public class EnemyTurretAI : MonoBehaviour
         currentState = EnemyTurretState.SEARCH;
     }
 
+    public void Deactivate()
+    {
+        animator.SetBool("isShoot", false);
+        currentState = EnemyTurretState.DEACTIVATED;
+        laserRenderer.enabled = false;
+    }
+
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -193,8 +203,11 @@ public class EnemyTurretAI : MonoBehaviour
         laserRenderer = xAxisTransform.GetComponentInChildren<LaserRenderer>();
         laserStartTransform = xAxisTransform.Find("LaserStart").transform;
         gunFireTransform = xAxisTransform.Find("GunFirePoint").transform;
+        
         canvas = GetComponentInChildren<Canvas>();
-        overheatTransform = canvas.transform.GetChild(0).GetComponent<RectTransform>();
+        overheatRect = canvas.transform.GetChild(0).GetComponent<RectTransform>();
+        overheatGageRect = overheatRect.GetChild(0).GetChild(0).GetComponent<RectTransform>();
+        overheatText = overheatRect.GetChild(1).GetComponent<Text>();
 
         laserRenderer.enabled = true;
         audioSource.clip = fireAudioClip;
@@ -203,6 +216,13 @@ public class EnemyTurretAI : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (currentState == EnemyTurretState.DEACTIVATED)
+        {
+            animator.SetBool("isShoot", false);
+            Aim(transform.position + transform.forward - transform.up, 50);
+            return;
+        }
+
         DrawLaser();
 
         if (currentState != EnemyTurretState.OVERHEAT)
@@ -223,7 +243,10 @@ public class EnemyTurretAI : MonoBehaviour
                 Aim(transform.position + transform.forward + transform.right * 2, rotateSpeed * searchSpeed);
                 overheatGage = Mathf.Clamp(overheatGage - Time.deltaTime * 5, 0, 100);
             }
-            canvas.gameObject.SetActive(false);
+
+            canvas.gameObject.SetActive(overheatGage > 0);
+            overheatGageRect.sizeDelta = new Vector2(overheatGage * (100f / overheatThreshold), overheatGageRect.sizeDelta.y);
+            overheatText.color = new Color(1f, 1f, 1f, 0.1f);
         }
         else
         {
@@ -231,13 +254,15 @@ public class EnemyTurretAI : MonoBehaviour
             Aim(transform.position + transform.forward - transform.up, 50);
             
             canvas.gameObject.SetActive(true);
-
-            var screenPos = Camera.main.WorldToScreenPoint(transform.position);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, screenPos,
-                canvas.worldCamera, out Vector2 movePos);
-
-            overheatTransform.position = canvas.transform.TransformPoint(movePos + new Vector2(50, 50));
+            overheatGageRect.sizeDelta = new Vector2(overheatGage * (100f / overheatThreshold), overheatGageRect.sizeDelta.y);
+            overheatText.color = new Color(1, 0.1647f, 0.1647f, 1);
         }
+
+        var screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, screenPos,
+            canvas.worldCamera, out Vector2 movePos);
+
+        overheatRect.position = canvas.transform.TransformPoint(movePos + new Vector2(50, 50));
 
         UpdateGunFireTimer();
     }

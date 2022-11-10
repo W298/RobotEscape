@@ -17,7 +17,7 @@ public class BoxInteract : MonoBehaviour
     public BoxMode boxMode = BoxMode.AMMO;
     public int amount = 3;
 
-    public void Interact(GameObject target)
+    public void Interact(GameObject caller)
     {
         if (!isActive) return;
 
@@ -25,7 +25,7 @@ public class BoxInteract : MonoBehaviour
         switch (boxMode)
         {
             case BoxMode.AMMO:
-                GunController g = target.GetComponentInChildren<GunController>();
+                GunController g = caller.GetComponentInChildren<GunController>();
                 if (g && amount > 0)
                 {
                     g.ammoSystem.remainAmmo += 30;
@@ -34,7 +34,7 @@ public class BoxInteract : MonoBehaviour
                 }
                 break;
             case BoxMode.HEALTH:
-                PlayerInventory i = target.GetComponent<PlayerInventory>();
+                PlayerInventory i = caller.GetComponent<PlayerInventory>();
                 if (i && amount > 0)
                 {
                     i.AddItem("AidKit", 1);

@@ -12,6 +12,8 @@ public class RobotInputHandler : MonoBehaviour
     private RobotAimController aimController;
     private GunController gunController;
     private PlayerUI playerUI;
+    private RobotStatusController statusController;
+    private PlayerInventory inventory;
 
     public InputAction movementAction;
     public InputAction fireAction;
@@ -19,6 +21,7 @@ public class RobotInputHandler : MonoBehaviour
     public InputAction crouchAction;
     public InputAction reloadAction;
     public InputAction interactAction;
+    public InputAction aidKitAction;
 
     private Rigidbody rigidbody;
     private NavMeshAgent navAgent;
@@ -43,6 +46,7 @@ public class RobotInputHandler : MonoBehaviour
     public bool isAim = false;
     public bool isCrouch = false;
     public bool isWalk = false;
+    public bool holdInteract = false;
 
     [Header("Event Binding")]
     public UnityEvent fireEvent;
@@ -75,7 +79,7 @@ public class RobotInputHandler : MonoBehaviour
 
     public void OnDeath()
     {
-        aimController.enabled = false;
+        aimController.gameObject.SetActive(false);
 
         if (isAI) return;
 
@@ -85,6 +89,7 @@ public class RobotInputHandler : MonoBehaviour
         fireAction.Disable();
         reloadAction.Disable();
         interactAction.Disable();
+        aidKitAction.Disable();
     }
 
     private void SetCrossHair(bool active)
@@ -97,6 +102,8 @@ public class RobotInputHandler : MonoBehaviour
         aimController = GetComponentInChildren<RobotAimController>();
         gunController = GetComponentInChildren<GunController>();
         playerUI = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUI>();
+        statusController = GetComponent<RobotStatusController>();
+        inventory = GetComponent<PlayerInventory>();
 
         rigidbody = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
@@ -118,6 +125,7 @@ public class RobotInputHandler : MonoBehaviour
         fireAction.Enable();
         reloadAction.Enable();
         interactAction.Enable();
+        aidKitAction.Enable();
 
         fireAction.started += context => fireStartEvent.Invoke();
         fireAction.canceled += context => fireEndEvent.Invoke();
@@ -130,7 +138,12 @@ public class RobotInputHandler : MonoBehaviour
         reloadAction.performed += Reload;
         interactAction.performed += context =>
         {
-            playerUI?.interactObject?.GetComponentInChildren<BoxInteract>().Interact(gameObject);
+            playerUI?.interactObject?.transform.GetChild(0).SendMessage("Interact", gameObject);
+        };
+
+        aidKitAction.performed += context =>
+        {
+            if (inventory.UseItem("AidKit", 1) && statusController.Heal(20)) inventory.AddItem("AidKit", 1);
         };
     }
 
@@ -143,6 +156,7 @@ public class RobotInputHandler : MonoBehaviour
 
         if (aimAction.enabled) isAim = aimAction.ReadValue<float>() == 1;
         if (fireAction.enabled) isFire = isAim && fireAction.ReadValue<float>() == 1;
+        if (interactAction.enabled) holdInteract = interactAction.ReadValue<float>() == 1;
         isMoving = movementAxis != Vector2.zero || GetVelocity().magnitude > 0.05f;
         if (isFire) fireEvent.Invoke();
 

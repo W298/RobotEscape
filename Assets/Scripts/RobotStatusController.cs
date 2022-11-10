@@ -34,7 +34,7 @@ public class RobotStatusController : MonoBehaviour
         }
     }
 
-    private bool Heal(float amount)
+    public bool Heal(float amount)
     {
         if (health + amount > maxHealth)
         {

@@ -1985,7 +1985,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3672606999070260480}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d0df4bc0813932f4f866a01f81274a35, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -2125,7 +2125,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  maxHealth: 10000
+  maxHealth: 100
   health: 0
   isDeath: 0
   healthHealAmount: 2
@@ -2286,6 +2286,23 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Interact
+      m_Flags: 0
+    m_Flags: 0
+  aidKitAction:
+    m_Name: Aid Kit
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f8ca5b6f-b913-4b90-b691-a61b250accb0
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: b600f520-bc28-40a8-8adc-d6f2e94f32ef
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Aid Kit
       m_Flags: 0
     m_Flags: 0
   movementVector: {x: 0, y: 0}

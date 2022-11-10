@@ -31,12 +31,24 @@ public class PlayerUI : MonoBehaviour
 
     public void HideInteractUI()
     {
-        this.interactObject = null;
+        interactObject = null;
     }
 
     public void SetInteractDescription(string text)
     {
         descriptionText.text = text;
+    }
+
+    private void LocateInteractUI()
+    {
+        interactRect.gameObject.SetActive(interactObject != null);
+        if (!interactObject) return;
+
+        var screenPos = Camera.main.WorldToScreenPoint(interactObject.transform.position);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, screenPos,
+            canvas.worldCamera, out Vector2 movePos);
+
+        interactRect.position = canvas.transform.TransformPoint(movePos + new Vector2(50, 50));
     }
 
     private void Start()
@@ -60,20 +72,14 @@ public class PlayerUI : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (statusController.isDeath) return;
+
         reloadText.gameObject.SetActive(animator.GetBool("isReload"));
 
         ammoText.text = gunController.ammoSystem.magAmmo + " / " + gunController.ammoSystem.remainAmmo;
         healthText.text = ((int)statusController.health).ToString();
 
-        interactRect.gameObject.SetActive(interactObject != null);
-        if (interactObject)
-        {
-            var screenPos = Camera.main.WorldToScreenPoint(interactObject.transform.position);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, screenPos,
-                canvas.worldCamera, out Vector2 movePos);
-
-            interactRect.position = canvas.transform.TransformPoint(movePos + new Vector2(50, 50));
-        }
+        LocateInteractUI();
 
         var aidKit = playerInventory.GetItem("AidKit");
         aidText.text = "x " + (aidKit != null ? aidKit.count.ToString() : "0");

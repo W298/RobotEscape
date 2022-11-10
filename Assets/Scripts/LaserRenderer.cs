@@ -10,7 +10,7 @@ public class LaserRenderer : MonoBehaviour
 	
 	private LineRenderer laserLine;
 
-	void Start() 
+    void Start() 
 	{
 		laserLine = GetComponent<LineRenderer>();
 	}

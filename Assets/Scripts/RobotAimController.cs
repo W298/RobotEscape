@@ -12,6 +12,11 @@ public class RobotAimController : MonoBehaviour
 
     public Transform laserStartPoint;
 
+    private void OnDisable()
+    {
+        laserRenderer.gameObject.SetActive(false);
+    }
+
     private void Start()
     {
         laserRenderer = transform.root.gameObject.GetComponentInChildren<LaserRenderer>();

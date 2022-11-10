@@ -574,7 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c077181487a35a4ba7add6fa4496dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reactionDelay: 1.5
+  reactionDelay: 1
   enemyObject: {fileID: 0}
   lastEnemyPosition: {x: 0, y: 0, z: 0}
   isHit: 0
@@ -664,7 +664,7 @@ MonoBehaviour:
   maxHealth: 100
   health: 0
   isDeath: 0
-  healthHealAmount: 5
+  healthHealAmount: 2
   healthHealInterval: 5
 --- !u!114 &757420663
 MonoBehaviour:
@@ -728,6 +728,15 @@ MonoBehaviour:
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 096f3ab5-1cdb-4a59-80b9-9cec69620d60
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  aidKitAction:
+    m_Name: Aid Kit
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 33dcb5a8-698d-4a81-aa4c-32380460b87e
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []

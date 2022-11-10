@@ -42,24 +42,59 @@ public class PlayerInventory : MonoBehaviour
         AddItem(0, 2);
     }
 
-    public void AddItem(int id, int count)
+    public bool AddItem(int id, int count)
     {
         if (inventory.Any(i => i.id == id))
         {
             inventory.Find(i => i.id == id).count += count;
+            return false;
         }
-
+        
         inventory.Add(new Item(id, count));
+        return true;
     }
 
-    public void AddItem(string name, int count)
+    public bool AddItem(string name, int count)
     {
         if (inventory.Any(i => i.name == name))
         {
             inventory.Find(i => i.name == name).count += count;
+            return false;
         }
 
         inventory.Add(new Item(name, count));
+        return true;
+    }
+
+    public bool UseItem(int id, int count)
+    {
+        if (inventory.All(i => i.id != id)) return false;
+
+        var item = inventory.Find(i => i.id == id);
+        item.count -= count;
+        if (item.count < 0)  
+        {
+            item.count = 0;
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public bool UseItem(string name, int count)
+    {
+        if (inventory.All(i => i.name != name)) return false;
+
+        var item = inventory.Find(i => i.name == name);
+        item.count -= count;
+        if (item.count < 0)  
+        {
+            item.count = 0;
+            return false;
+        }
+
+        return true;
     }
 
     public Item GetItem(int id)
