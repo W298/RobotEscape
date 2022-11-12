@@ -72,14 +72,7 @@ public class RobotAimController : MonoBehaviour
         gameObject.transform.position = targetPos;
 
         laserRenderer.enabled = inputHandler.isAim;
-        laserRenderer.start = laserStartPoint.position;
-        laserRenderer.end = laserRenderer.start + laserStartPoint.forward * 100;
-
-        Ray laserRay = new Ray(laserRenderer.start, laserStartPoint.forward);
-        Physics.Raycast(laserRay, out RaycastHit laserHit, 100);
-        if (laserHit.collider)
-        {
-            laserRenderer.end = laserHit.point;
-        }
+        int layerMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Ground");
+        laserRenderer.SetLaserPoint(laserStartPoint.position, laserStartPoint.forward, layerMask);
     }
 }

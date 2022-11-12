@@ -52,15 +52,6 @@ public class EnemyTurretAI : MonoBehaviour
 
     [Header("FSM")] public EnemyTurretState currentState;
 
-    private void DrawLaser()
-    {
-        laserRenderer.start = laserStartTransform.position;
-        laserRenderer.end = laserStartTransform.position + laserStartTransform.forward * 100;
-
-        Physics.Raycast(laserRenderer.start, laserStartTransform.forward, out RaycastHit hit, 100);
-        if (hit.collider) laserRenderer.end = hit.point;
-    }
-
     private void Aim(Vector3 targetPosition, float rotateSpeed)
     {
         var lookRotation = Quaternion.LookRotation(targetPosition - transform.position, Vector3.up);
@@ -224,7 +215,8 @@ public class EnemyTurretAI : MonoBehaviour
             return;
         }
 
-        DrawLaser();
+        int layerMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Ground");
+        laserRenderer.SetLaserPoint(laserStartTransform.position, laserStartTransform.forward, layerMask);
 
         if (currentState != EnemyTurretState.OVERHEAT)
         {
@@ -240,7 +232,6 @@ public class EnemyTurretAI : MonoBehaviour
             {
                 animator.SetBool("isShoot", false);
                 currentState = EnemyTurretState.SEARCH;
-                DebugExtension.DebugPoint(transform.position + transform.forward + transform.right * 2, Color.yellow);
                 Aim(transform.position + transform.forward + transform.right * 2, rotateSpeed * searchSpeed);
                 overheatGage = Mathf.Clamp(overheatGage - Time.deltaTime * 5, 0, 100);
             }

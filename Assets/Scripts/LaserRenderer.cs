@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class LaserRenderer : MonoBehaviour 
+public class LaserRenderer : MonoBehaviour
 {
-	public Vector3 start;
-	public Vector3 end;
-	
-	private LineRenderer laserLine;
+    private LineRenderer laserLine;
 
-    void Start() 
+    public void SetLaserPoint(Vector3 start, Vector3 direction, int layerMask, float maxDistance = 100)
+    {
+        laserLine.SetPosition(0, start);
+        Physics.Raycast(new Ray(start, direction), out RaycastHit hit, maxDistance, layerMask);
+        laserLine.SetPosition(1, hit.collider ? hit.point : start + direction * 100);
+    }
+
+    private void Start() 
 	{
 		laserLine = GetComponent<LineRenderer>();
-	}
-	
-	void Update()
-	{
-		laserLine.SetPosition(0, start);
-		laserLine.SetPosition(1, end);
-	}
+    }
 
-	private void OnEnable()
+    private void OnEnable()
 	{
 		if (!laserLine) return;
 		laserLine.enabled = true;
