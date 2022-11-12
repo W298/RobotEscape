@@ -21,6 +21,8 @@ public class Patrol : Node
 
     public override NodeState Evaluate()
     {
+        if (!ebt.ai.patrolPoints) return NodeState.FAILURE;
+
         int count = ebt.ai.patrolPoints.transform.childCount;
         Vector3 targetPosition = ebt.ai.patrolPoints.transform.GetChild(current).transform.position;
 

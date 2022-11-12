@@ -31,7 +31,7 @@ public class Seek : Node
             {
                 seekWaitTimer += seekWaitDuration;
 
-                seekPosition = CreateRandomPoint();
+                seekPosition = CreateRandomPoint(ebt.ai.lastEnemyPosition, 10);
                 ebt.ai.seekPointReached = true;
             }
         }
@@ -42,12 +42,10 @@ public class Seek : Node
         return success ? NodeState.RUNNING : NodeState.FAILURE;
     }
 
-    private Vector3 CreateRandomPoint()
+    private Vector3 CreateRandomPoint(Vector3 targetPosition, float maxDistance)
     {
-        Vector3 randomPoint = Random.insideUnitSphere * 10 + ebt.ai.lastEnemyPosition;
-
-        NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 10, NavMesh.AllAreas);
-
+        Vector3 randomPoint = Random.insideUnitSphere * 10 + targetPosition;
+        NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, maxDistance, NavMesh.AllAreas);
         return hit.position;
     }
 }
