@@ -11,10 +11,13 @@ public class LaptopInteract : MonoBehaviour
     private Text percentText;
     private RectTransform rootRect;
     private RectTransform gageRect;
+    private AudioSource audioSource;
 
     private RobotInputHandler callerInput;
     private float gage = 0;
     private bool success = false;
+
+    public Material onMaterial;
 
     public void Interact(GameObject caller)
     {
@@ -22,6 +25,8 @@ public class LaptopInteract : MonoBehaviour
         playerUI.SetInteractDescription("");
         canvas.gameObject.SetActive(true);
         callerInput = caller.GetComponent<RobotInputHandler>();
+
+        transform.parent.GetComponent<MeshRenderer>().material = onMaterial;
     }
 
     private void LocateUI()
@@ -42,6 +47,25 @@ public class LaptopInteract : MonoBehaviour
         playerUI.GetComponentInChildren<MissionController>().SetMissionStatus("Main02", MissionStatus.COMPLETE);
     }
 
+    private void StartBeep()
+    {
+        audioSource.Play();
+
+        foreach (var robot in GameObject.FindGameObjectsWithTag("Robot"))
+        {
+            var soundSensor = robot.GetComponentInChildren<AISoundSensor>();
+            if (soundSensor) soundSensor.OnSoundHear(audioSource.maxDistance, transform.parent.position, transform.parent.gameObject, true);
+        }
+
+        StartCoroutine(StopBeep());
+    }
+
+    private IEnumerator StopBeep()
+    {
+        yield return new WaitForSeconds(0.8f * 10);
+        audioSource.Stop();
+    }
+
     private void Start()
     {
         playerUI = GameObject.Find("PlayerUICanvas").GetComponent<PlayerUI>();
@@ -50,6 +74,7 @@ public class LaptopInteract : MonoBehaviour
         percentText = canvas.transform.GetChild(0).Find("Percent").GetComponent<Text>();
         rootRect = canvas.transform.GetChild(0).GetComponent<RectTransform>();
         gageRect = canvas.transform.GetChild(0).Find("Back").GetChild(0).GetComponent<RectTransform>();
+        audioSource = transform.parent.GetComponentInChildren<AudioSource>();
     }
 
     private void Update()
@@ -58,6 +83,11 @@ public class LaptopInteract : MonoBehaviour
         percentText.text = (int)gage + " %";
         gageRect.sizeDelta = new Vector2(gage * 1.65f, gageRect.sizeDelta.y);
         LocateUI();
+
+        if (((30 <= gage && gage <= 31) || (80 <= gage && gage <= 81)) && !audioSource.isPlaying)
+        {
+            StartBeep();
+        }
 
         if (gage >= 100)
         {

@@ -11,7 +11,7 @@ public class LaserRenderer : MonoBehaviour
     {
         laserLine.SetPosition(0, start);
         Physics.Raycast(new Ray(start, direction), out RaycastHit hit, maxDistance, layerMask);
-        laserLine.SetPosition(1, hit.collider ? hit.point : start + direction * 100);
+        laserLine.SetPosition(1, hit.collider ? hit.point : start + direction * maxDistance);
     }
 
     private void Start() 

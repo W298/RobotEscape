@@ -216,7 +216,7 @@ public class EnemyTurretAI : MonoBehaviour
         }
 
         int layerMask = 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Ground");
-        laserRenderer.SetLaserPoint(laserStartTransform.position, laserStartTransform.forward, layerMask);
+        laserRenderer.SetLaserPoint(laserStartTransform.position, laserStartTransform.forward, layerMask, visionSensor.redZoneDistance);
 
         if (currentState != EnemyTurretState.OVERHEAT)
         {

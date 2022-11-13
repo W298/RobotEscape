@@ -747,6 +747,7 @@ MonoBehaviour:
   isAim: 0
   isCrouch: 0
   isWalk: 0
+  holdInteract: 0
   fireEvent:
     m_PersistentCalls:
       m_Calls:
@@ -3042,7 +3043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   redZoneDistance: 4
   yellowZoneDistance: 12.5
-  horizontalAngle: 60
+  horizontalAngle: 70
   verticalAngle: 20
   horizontalResolution: 24
   verticalResolution: 6
@@ -3062,6 +3063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hearRange: 2.5
+  accuracy: 4
   lastDetectedPosition: {x: 0, y: 0, z: 0}
   lastDetectedOwner: {fileID: 0}
 --- !u!1 &3906288087990372948
@@ -7124,7 +7126,7 @@ PrefabInstance:
     - target: {fileID: 5068976619487244169, guid: a66d64962dad7b441b895147b3616981,
         type: 3}
       propertyPath: magCapacity
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5068976619487244169, guid: a66d64962dad7b441b895147b3616981,
         type: 3}

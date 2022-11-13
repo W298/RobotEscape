@@ -32,16 +32,16 @@ public class StatusIndicator : MonoBehaviour
     {
         healthBarRect.sizeDelta = new Vector2(robotStatus.health, healthBarRect.sizeDelta.y);
 
-        if (ai.detectLevel.currentLevel <= 0)
+        if (ai.detectLevel.currentLevel <= 0 && !ai.enemyObject)
         {
             detectBorder.SetActive(false);
         }
         else
         {
             detectBorder.SetActive(true);
-            detectFrontRect.sizeDelta = new Vector2(detectFrontRect.sizeDelta.x, Mathf.Clamp(ai.detectLevel.currentLevel * 0.3f * 1.25f, 0, 30));
+            detectFrontRect.sizeDelta = new Vector2(detectFrontRect.sizeDelta.x, ai.enemyObject ? 30 : Mathf.Clamp(ai.detectLevel.currentLevel * 0.3f * 1.25f, 0, 30));
 
-            detectFrontImage.color = ai.detectLevel.currentLevel >= 80 ? new Color(0.735849f, 0.2249199f, 0.2662449f) : new Color(1, 0.7328318f, 0);
+            detectFrontImage.color = ai.detectLevel.currentLevel >= 80 || ai.enemyObject ? new Color(0.735849f, 0.2249199f, 0.2662449f) : new Color(1, 0.7328318f, 0);
         }
 
         transform.rotation = mainCam.transform.rotation;

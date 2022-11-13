@@ -9,10 +9,10 @@ public class AISoundSensor : MonoBehaviour
 
     [Header("Param")]
     public float hearRange = 20f;
-    public float accuracy = 4f;
+    public float accuracy = 1f;
 
     [Header("Result")]
-    public Vector3 lastDetectedPosition;
+    public Vector3 lastDetectedPosition = new Vector3(-100, -100, -100);
     public GameObject lastDetectedOwner;
 
     private void Start()
@@ -22,17 +22,18 @@ public class AISoundSensor : MonoBehaviour
 
     private Vector3 CreateRandomPoint(Vector3 targetPosition, float maxDistance)
     {
-        Vector3 randomPoint = Random.insideUnitSphere * 10 + targetPosition;
+        Vector3 randomPoint = Random.insideUnitSphere * maxDistance + targetPosition;
         NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, maxDistance, NavMesh.AllAreas);
         return hit.position;
     }
 
-    public void OnSoundHear(float soundRange, Vector3 soundPosition, GameObject owner)
+    public void OnSoundHear(float soundRange, Vector3 soundPosition, GameObject owner, bool definiteSound = false)
     {
         if (Vector3.Distance(transform.position, soundPosition) > soundRange + hearRange) return;
+        if (Vector3.Distance(lastDetectedPosition, soundPosition) <= accuracy) return;
 
         lastDetectedPosition = soundPosition;
         lastDetectedOwner = owner;
-        StartCoroutine(ai.SoundReaction(CreateRandomPoint(soundPosition, accuracy), owner));
+        StartCoroutine(ai.SoundReaction(definiteSound ? soundPosition : CreateRandomPoint(soundPosition, accuracy), owner));
     }
 }

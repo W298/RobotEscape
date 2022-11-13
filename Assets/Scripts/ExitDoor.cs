@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class ExitDoor : MonoBehaviour
 {
+    private ExitTrigger exitTrigger;
     private bool open = false;
 
     public void OpenDoor()
     {
         open = true;
+        exitTrigger.active = true;
+    }
+
+    private void Start()
+    {
+        exitTrigger = GetComponentInChildren<ExitTrigger>();
     }
 
     private void Update()

@@ -15,6 +15,13 @@ public class IsSeekLevelHigh : Node
 
     public override NodeState Evaluate()
     {
-        return ebt.ai.seekLevel.currentLevel > threshold ? NodeState.SUCCESS : NodeState.FAILURE;
+        if (ebt.ai.seekLevel.currentLevel > threshold)
+        {
+            return NodeState.SUCCESS;
+        }
+
+        ebt.ai.lastEnemyPosition = new Vector3(-100, -100, -100);
+        ebt.ai.soundSensor.lastDetectedPosition = new Vector3(-100, -100, -100);
+        return NodeState.FAILURE;
     }
 }

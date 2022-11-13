@@ -79,7 +79,7 @@ public class RobotInputHandler : MonoBehaviour
 
     public void OnDeath()
     {
-        aimController.gameObject.SetActive(false);
+        aimController.enabled = false;
 
         if (isAI) return;
 

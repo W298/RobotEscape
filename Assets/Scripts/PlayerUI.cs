@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
@@ -19,6 +20,10 @@ public class PlayerUI : MonoBehaviour
     private Text reloadText;
     private RectTransform interactRect;
     private Text descriptionText;
+    private Image diedBackImage;
+    private Text diedBackText;
+    private Button retryButton;
+    private Button exitButton;
 
     public GameObject interactObject = null;
 
@@ -37,6 +42,51 @@ public class PlayerUI : MonoBehaviour
     public void SetInteractDescription(string text)
     {
         descriptionText.text = text;
+    }
+
+    public void OnDeath()
+    {
+        diedBackImage.color = new Color(0, 0, 0, 0.9f);
+        diedBackText.text = "Mission Failed";
+        retryButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.007f);
+        retryButton.GetComponentInChildren<Text>().text = "Retry";
+        retryButton.interactable = true;
+        exitButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.007f);
+        exitButton.GetComponentInChildren<Text>().text = "Exit";
+        exitButton.interactable = true;
+
+        retryButton.onClick.AddListener(Retry);
+        exitButton.onClick.AddListener(Exit);
+    }
+
+    public void OnSuccess()
+    {
+        diedBackImage.color = new Color(0, 0, 0, 0.9f);
+        diedBackText.color = new Color(1, 1, 1);
+        diedBackText.text = "Mission Complete";
+        retryButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.007f);
+        retryButton.GetComponentInChildren<Text>().text = "Retry";
+        retryButton.interactable = true;
+        exitButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.007f);
+        exitButton.GetComponentInChildren<Text>().text = "Exit";
+        exitButton.interactable = true;
+
+        retryButton.onClick.AddListener(Retry);
+        exitButton.onClick.AddListener(Exit);
+    }
+
+    private void Retry()
+    {
+        SceneManager.LoadScene("Stage", LoadSceneMode.Single);
+        Time.timeScale = 1;
+    }
+
+    private void Exit()
+    {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        Application.Quit();
     }
 
     private void LocateInteractUI()
@@ -68,6 +118,10 @@ public class PlayerUI : MonoBehaviour
         reloadText = transform.Find("ReloadingText").GetComponent<Text>();
         interactRect = transform.Find("Interact").GetComponent<RectTransform>();
         descriptionText = transform.Find("Interact").Find("DescriptionImage").GetChild(0).GetComponent<Text>();
+        diedBackImage = transform.Find("DiedBack").GetComponent<Image>();
+        diedBackText = transform.Find("DiedBack").GetChild(0).GetComponent<Text>();
+        retryButton = transform.Find("DiedBack").GetChild(1).GetComponent<Button>();
+        exitButton = transform.Find("DiedBack").GetChild(2).GetComponent<Button>();
     }
 
     private void LateUpdate()
