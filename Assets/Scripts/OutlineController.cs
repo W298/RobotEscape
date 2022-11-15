@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class OutlineController : MonoBehaviour
 {
-    private bool outlineShown = false;
     private int outlineLayer;
     private int objectLayer;
     private int obstacleLayer;
@@ -86,20 +85,21 @@ public class OutlineController : MonoBehaviour
 
     private void Update()
     {
-        Physics.Linecast(camera.transform.position, transform.position, out RaycastHit hit, 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Ground"));
-        
-        if (hit.collider && !outlineShown)
+        Physics.Linecast(camera.transform.position, transform.position, out RaycastHit obstacleHit, 1 << LayerMask.NameToLayer("Obstacle"));
+
+        Physics.Linecast(camera.transform.position, transform.position, out RaycastHit groundHit, 1 << LayerMask.NameToLayer("Ground"));
+
+        HidePlayerOutline();
+        HideObstacleOutline();
+
+        if (groundHit.collider)
         {
             ShowPlayerOutline();
             ShowObstacleOutline();
-            outlineShown = true;
         }
-        
-        if (!hit.collider && outlineShown)
+        if (obstacleHit.collider)
         {
-            HidePlayerOutline();
-            HideObstacleOutline();
-            outlineShown = false;
+            ShowPlayerOutline();
         }
 
         SetEnemyRobotOutline();
