@@ -34,6 +34,7 @@ public class OutlineController : MonoBehaviour
     {
         foreach (var enemyRobot in enemyAry)
         {
+            if (enemyRobot == null) continue;
             Physics.Linecast(camera.transform.position, enemyRobot.transform.position, out RaycastHit hit,
                 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Ground"));
             
