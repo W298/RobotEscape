@@ -31,17 +31,16 @@ public class OutlineController : MonoBehaviour
         }
     }
 
-    private void ShowEnemyOutline()
+    private void SetEnemyRobotOutline()
     {
         foreach (var enemyRobot in enemyAry)
         {
             Physics.Linecast(camera.transform.position, enemyRobot.transform.position, out RaycastHit hit,
                 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Ground"));
-            if (!hit.collider) continue;
-
+            
             for (int i = 4; i < enemyRobot.transform.childCount; i++)
             {
-                enemyRobot.transform.GetChild(i).gameObject.layer = outlineLayer;
+                enemyRobot.transform.GetChild(i).gameObject.layer = hit.collider ? outlineLayer : objectLayer;
             }
         }
     }
@@ -59,17 +58,6 @@ public class OutlineController : MonoBehaviour
         foreach (GameObject o in obstacleAry)
         {
             SetLayerRecursive(o, obstacleLayer);
-        }
-    }
-
-    private void HideEnemyOutline()
-    {
-        foreach (var enemyRobot in enemyAry)
-        {
-            for (int i = 4; i < enemyRobot.transform.childCount; i++)
-            {
-                enemyRobot.transform.GetChild(i).gameObject.layer = objectLayer;
-            }
         }
     }
 
@@ -104,7 +92,6 @@ public class OutlineController : MonoBehaviour
         {
             ShowPlayerOutline();
             ShowObstacleOutline();
-            ShowEnemyOutline();
             outlineShown = true;
         }
         
@@ -112,8 +99,9 @@ public class OutlineController : MonoBehaviour
         {
             HidePlayerOutline();
             HideObstacleOutline();
-            HideEnemyOutline();
             outlineShown = false;
         }
+
+        SetEnemyRobotOutline();
     }
 }

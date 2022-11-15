@@ -39,7 +39,7 @@ public class AIVisionSensor : MonoBehaviour
         Vector3 point = transform.position +
                         Quaternion.AngleAxis(currentVAngle, transform.right) * Quaternion.AngleAxis(currentHAngle, transform.up) * transform.forward * distance;
 
-        Physics.Linecast(transform.position, point, out RaycastHit hit, 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Object") | 1 << LayerMask.NameToLayer("Ground"));
+        Physics.Linecast(transform.position, point, out RaycastHit hit, 1 << LayerMask.NameToLayer("Obstacle") | 1 << LayerMask.NameToLayer("Object") | 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Outlined"));
 
         if ((h == 0 || h == horizontalResolution - 1) && (v == 0 || v == verticalResolution - 1))
         {

@@ -50,7 +50,8 @@ public class GunController : MonoBehaviour
     public Transform muzzleFireStart;
 
     [Header("Audio")]
-    public AudioClip audioClip;
+    public AudioClip fireAudioClip;
+    public AudioClip reloadAudioClip;
     private AudioSource audioSource;
     public float fireSoundRange = 20f;
 
@@ -78,9 +79,7 @@ public class GunController : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponentInChildren<AudioSource>();
-        audioSource.clip = audioClip;
         camController = transform.root.GetComponent<PlayerCameraController>();
-
         ammoSystem = new AmmoSystem(magCapacity, totalAmmo);
     }
 
@@ -155,6 +154,7 @@ public class GunController : MonoBehaviour
 
         StartCoroutine(SpawnTrail(hit));
 
+        audioSource.clip = fireAudioClip;
         audioSource.Play();
         if (camController) camController.ShakeCamera(0.7f, 0.07f);
 
@@ -167,6 +167,12 @@ public class GunController : MonoBehaviour
             var soundSensor = robot.GetComponentInChildren<AISoundSensor>();
             if (soundSensor) soundSensor.OnSoundHear(fireSoundRange, transform.position, transform.root.gameObject);
         }
+    }
+
+    public void PlayReloadSound()
+    {
+        audioSource.clip = reloadAudioClip;
+        audioSource.Play();
     }
 
     public void OnFire()
