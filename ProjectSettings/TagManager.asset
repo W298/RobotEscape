@@ -8,6 +8,7 @@ TagManager:
   - PatrolPoint
   - CoverPoint
   - Binder
+  - OutlineObstacle
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - Obstacle
   - Object
-  - 
+  - Outlined
   - 
   - 
   - 
