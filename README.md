@@ -3,5 +3,5 @@
 # Robot! Escape!
 Top-Down Shooter Game
 
-- [Devlog](https://velog.io/@lutca1320/series/DEVLOG-Robot-Escape) on Velog
+- [Devlog](https://www.w298.me/posts/robot_escape_01)
 - [Gameplay Video](https://www.youtube.com/watch?v=1OnYDUsy9KU) on Youtube
